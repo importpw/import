@@ -1,12 +1,12 @@
 #!/bin/bash
-IMPORT_PATH="${HOME}/.import-cache"
+IMPORT_CACHE="${HOME}/.import-cache"
 
 import() {
   local url="$1"
   local hash="$(printf "%s" "${url}" | sha1sum | awk '{print $1}')"
-  local cachefile="${IMPORT_PATH}/${hash}"
+  local cachefile="${IMPORT_CACHE}/${hash}"
   if [ ! -f "${cachefile}" ] || [ ! -z "${IMPORT_RELOAD-}" ]; then
-    mkdir -p "${IMPORT_PATH}"
+    mkdir -p "${IMPORT_CACHE}"
     local r=0
     (echo "# ${url}" && curl "${url}" -sSL --fail) > "${cachefile}.tmp" || r=$?
     if [ "$r" -ne 0 ]; then
