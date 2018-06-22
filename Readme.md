@@ -15,7 +15,7 @@ URL `import` function for bash scripts with caching.
 set -euo pipefail
 
 # Bootstrap the `import` function (there are multiple ways to do this)
-source "`which import.sh`"
+eval "`curl -sfLS import.pw`"
 
 # This gets downloaded once, cached forever, and then `source`d into your script
 import "gh.import.pw/tootallnate/chalk@1.0.0"
