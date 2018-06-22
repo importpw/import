@@ -2,13 +2,13 @@
 
 URL `import` function for bash scripts with caching.
 
-#### Dependencies
+### Dependencies
 
  * `awk`
  * `curl`
  * `sha1sum`
 
-# Example
+## Example
 
 ```bash
 #!/bin/bash
@@ -18,7 +18,8 @@ set -euo pipefail
 eval "`curl -sfLS import.pw`"
 
 # This gets downloaded once, cached forever, and then `source`d into your script
-import "gh.import.pw/tootallnate/chalk@1.0.0"
+import "import.pw/assert@1.0.0"
 
-echo "`chalk.blue Hello` World`chalk.red '!'`"
+assert 1 -eq 2
+# assertion failed: 1 -eq 2
 ```
