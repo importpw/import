@@ -18,8 +18,12 @@ set -euo pipefail
 eval "`curl -sfLS import.pw`"
 
 # This gets downloaded once, cached forever, and then `source`d into your script
-import "import.pw/assert@1.0.0"
+import "import.pw/http@1.0.0"
 
-assert 1 -eq 2
-# assertion failed: 1 -eq 2
+serve() {
+  set_response_header "Content-Type" "text/plain"
+  echo Hello World
+}
+
+http.create_server serve 3000
 ```
