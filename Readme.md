@@ -2,13 +2,22 @@
 
 URL `import` function for bash scripts with caching.
 
+Inspired by Go's import command, you specify the URI of the bash script,
+and the `import` function downloads it and caches it to `~/.import-cache`
+(by default) _forever_. This way, the code will never change from below
+your feet and it will work offline / on an airplane.
+
 ### Dependencies
 
  * `awk`
  * `curl`
  * `sha1sum`
 
+
 ## Example
+
+The URL https://git.io/f4SOX contains a simple `add()` bash function.
+You can use the `import` function to download, cache, and use that function.
 
 ```bash
 #!/bin/bash
@@ -18,12 +27,8 @@ set -euo pipefail
 eval "`curl -sfLS import.pw`"
 
 # This gets downloaded once, cached forever, and then `source`d into your script
-import "import.pw/http@1.0.0"
+import "git.io/f4SOX"
 
-serve() {
-  set_response_header "Content-Type" "text/plain"
-  echo Hello World
-}
-
-http.create_server serve 3000
+add 7 11
+# 18
 ```
