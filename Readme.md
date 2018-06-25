@@ -68,7 +68,7 @@ This code snippet attempts to load the `import.sh` file from:
 And if it does not exist in these paths then the `eval` example above is used.
 
 
-## Caching the `import.sh` script locall
+## Caching the `import.sh` script locally
 
 To utilize the robust bootstrapping code, you will need to have the `import.sh`
 script cached locally. For example, to install it to `/usr/local/lib`:
