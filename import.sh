@@ -8,7 +8,7 @@ import() {
   if [ ! -f "${cachefile}" ] || [ ! -z "${IMPORT_RELOAD-}" ]; then
     mkdir -p "${IMPORT_CACHE}"
     local r=0
-    (echo "# ${url}" && curl "${url}" -sSL --fail) > "${cachefile}.tmp" || r=$?
+    (curl "${url}" -sSL --fail && echo && echo "# ${url}") > "${cachefile}.tmp" || r=$?
     if [ "$r" -ne 0 ]; then
       echo "Import failed: $r $url" >&2
       return "$r"
