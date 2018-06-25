@@ -1,5 +1,5 @@
 #!/bin/bash
-IMPORT_CACHE="${HOME}/.import-cache"
+IMPORT_CACHE="${IMPORT_CACHE-${HOME}/.import-cache}"
 
 import() {
   local url="$1"
