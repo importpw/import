@@ -9,7 +9,6 @@ your feet and it will work offline / on an airplane.
 
 ### Dependencies
 
- * `awk`
  * `curl`
  * `sha1sum`
 
