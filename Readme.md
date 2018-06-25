@@ -31,3 +31,38 @@ import "git.io/f4SOX"
 add 7 11
 # 18
 ```
+
+
+## Bootstrapping the `import.sh` script
+
+Since the `import.sh` file itself defines the `import()` function, you naturally
+can not use the `import` function to load the import function.
+
+The "quick and pretty" way it to simply `curl` + `eval` the import script, as in
+the Example above:
+
+```bash
+eval "`curl -sfLS import.pw`"
+```
+
+However, this involves an HTTP request every time that the bash script is run, and
+thus would not work offine and is not as optimized.
+
+A more robust solution is to first attempt to load the import script from the
+filesystem, and then fall back to the network request if the local file does not
+exist. For example:
+
+```bash
+while IFS=: read -d: -r p; do [ -f "$p/import.sh" ] && source "$p/import.sh" && break ||:
+done <<< "${IMPORT_PATH:+"$IMPORT_PATH:"}$HOME/lib:/usr/lib:/usr/local/lib:"
+declare -f import >/dev/null || eval "`curl -sfLS import.pw`"
+```
+
+This code snippet attempts to load the `import.sh` file from:
+
+ * `$IMPORT_PATH` (`:` separated directory paths)
+ * `$HOME/lib/import.sh`
+ * `/usr/lib/import.sh`
+ * `/usr/local/lib/import.sh`
+
+And if it does not exist in these paths then the `eval` example above is used.
