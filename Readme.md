@@ -64,7 +64,8 @@ This code snippet attempts to load the `import.sh` file from:
  * `/usr/lib/import.sh`
  * `/usr/local/lib/import.sh`
 
-And if it does not exist in these paths then the `eval` example above is used.
+If the `import.sh` script is not cached in any of those paths, then the
+`curl` + `eval` fallback is used.
 
 
 ## Caching the `import.sh` script locally
