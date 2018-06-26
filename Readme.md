@@ -36,7 +36,7 @@ add 7 11
 ## Bootstrapping the `import.sh` script
 
 Since the `import.sh` file itself defines the `import()` function, you naturally
-can not use the `import` function to load the import function.
+can not _use_ the `import` function to load the import script. 🐔🥚
 
 The "quick and pretty" way it to simply `curl` + `eval` the import script, as in
 the Example above:
