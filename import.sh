@@ -16,5 +16,9 @@ import() {
     mv "${cachefile}.tmp" "${cachefile}"
     [ ! -z "${IMPORT_DEBUG-}" ] && echo "Imported: ${url}" >&2
   fi
-  source "${cachefile}"
+  if [ -z "${print-}" ]; then
+    source "${cachefile}"
+  else
+    echo "${cachefile}"
+  fi
 }
