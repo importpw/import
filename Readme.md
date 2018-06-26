@@ -38,8 +38,7 @@ add 7 11
 Since the `import.sh` file itself defines the `import()` function, you naturally
 can not _use_ the `import` function to load the import script. 🐔🥚
 
-The "quick and pretty" way it to simply `curl` + `eval` the import script, as in
-the Example above:
+The "quick and pretty" way it to simply `curl` + `eval` the import script:
 
 ```bash
 eval "`curl -sfLS import.pw`"
