@@ -1,22 +1,16 @@
-IMPORT_CACHE="${IMPORT_CACHE-${HOME}/.import-cache}"
 import() {
   local hash
-  local url="$1"
-  hash="$(echo "${url}" | sha1sum | { read -r first rest; echo "$first"; })"
-  local cachefile="${IMPORT_CACHE}/${hash}"
+  hash="$(echo "$1" | sha1sum | { read -r first rest; echo "$first"; })" || exit
+  local cache="${IMPORT_CACHE-${HOME}/.import-cache}"
+  local cachefile="${cache}/${hash}"
   if [ ! -f "${cachefile}" ] || [ ! -z "${IMPORT_RELOAD-}" ]; then
-    mkdir -p "${IMPORT_CACHE}"
-    local r=0
-    curl "${url}" -sSL --fail > "${cachefile}.tmp" || r=$?
-    if [ "$r" -ne 0 ]; then
-      echo "Import failed: $r $url" >&2
-      return "$r"
-    fi
-    mv "${cachefile}.tmp" "${cachefile}"
-    [ ! -z "${IMPORT_DEBUG-}" ] && echo "Imported: ${url}" >&2
+    mkdir -p "${cache}" || exit
+    curl -fsSL "$1" > "${cachefile}.tmp" || exit
+    mv "${cachefile}.tmp" "${cachefile}" || exit
+    [ ! -z "${IMPORT_DEBUG-}" ] && echo "imported: $1" >&2
   fi
   if [ -z "${print-}" ]; then
-    source "${cachefile}"
+    source "${cachefile}" || exit
   else
     echo "${cachefile}"
   fi
