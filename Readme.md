@@ -1,8 +1,8 @@
 # [import.pw](https://import.pw)
 
-URL `import` function for bash scripts with caching.
+URL `import` function for shell scripts with caching.
 
-Inspired by Go's import command, you specify the URI of the bash script,
+Inspired by Go's import command, you specify the URI of the shell script,
 and the `import` function downloads it and caches it to `~/.import-cache`
 (by default) _forever_. This way, the code will never change from below
 your feet and it will work offline / on an airplane.
@@ -15,17 +15,24 @@ your feet and it will work offline / on an airplane.
 
 ## Example
 
-The URL https://git.io/f4SOX contains a simple `add()` bash function.
-You can use the `import` function to download, cache, and use that function.
+This gist (https://git.io/f4SOX) contains a simple `add()` shell function:
 
 ```bash
-#!/bin/bash
-set -euo pipefail
+add() {
+  echo "$(( $1 + $2 ))"
+}
+```
 
-# Bootstrap the `import` function (there are multiple ways to do this)
+You can use the `import` function to download, cache, and use that function in
+your own script:
+
+```bash
+#!/bin/sh
+
+# Bootstrap the `import` function
 eval "`curl -sfLS import.pw`"
 
-# This gets downloaded once, cached forever, and then `source`d into your script
+# The gist is downloaded once, cached forever, and then `source`d into your script
 import "git.io/f4SOX"
 
 add 7 11
@@ -44,8 +51,8 @@ The "quick and pretty" way it to simply `curl` + `eval` the import script:
 eval "`curl -sfLS import.pw`"
 ```
 
-However, this involves an HTTP request every time that the bash script is run, and
-thus would not work offine and is not as optimized.
+However, this involves an HTTP request every time that the shell script is run,
+and thus would not work offine and is not as optimized.
 
 A more robust solution is to first attempt to load the import script from the
 filesystem, and then fall back to the network request if the local file does not
