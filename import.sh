@@ -1,4 +1,3 @@
-#!/bin/bash
 IMPORT_CACHE="${IMPORT_CACHE-${HOME}/.import-cache}"
 import() {
   local hash
