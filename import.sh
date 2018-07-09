@@ -5,7 +5,7 @@ import() {
   local cachefile="${cache}/${hash}"
   if [ ! -f "${cachefile}" ] || [ ! -z "${IMPORT_RELOAD-}" ]; then
     mkdir -p "${cache}" || exit
-    curl -fsSL "$1" > "${cachefile}.tmp" || exit
+    curl -fsSL --netrc-optional ${IMPORT_CURL_OPTS-} "$1" > "${cachefile}.tmp" || exit
     mv "${cachefile}.tmp" "${cachefile}" || exit
     [ ! -z "${IMPORT_DEBUG-}" ] && echo "imported: $1" >&2
   fi
