@@ -11,7 +11,7 @@ import() {
       return "$r"
     }
     mv "${cachefile}.tmp" "${cachefile}" || return
-    [ ! -z "${IMPORT_DEBUG-}" ] && echo "imported: $1" >&2
+    [ ! -z "${IMPORT_DEBUG-}" ] && echo "imported: $1 -> ${cachefile}" >&2
   fi
   if [ -z "${print-}" ]; then
     source "${cachefile}" || return
