@@ -7,6 +7,7 @@ import() {
     mkdir -p "${cache}" || return
     curl -fsSL --netrc-optional ${IMPORT_CURL_OPTS-} "$1" > "${cachefile}.tmp" || {
       r=$?
+      [ ! -z "${IMPORT_DEBUG-}" ] && echo "failed to import: $1" >&2
       rm "${cachefile}.tmp" || return
       return "$r"
     }
