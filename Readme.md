@@ -13,7 +13,7 @@ your feet and it will work offline / on an airplane.
  * `sha1sum`
 
 
-## Example
+## 👋 Example
 
 This gist (https://git.io/f4SOX) contains a simple `add()` shell function:
 
@@ -40,7 +40,7 @@ add 7 11
 ```
 
 
-## Authentication
+## 🔑 Authentication
 
 Because `import` uses `curl`, you can use the standard [`.netrc` file
 format](https://ec.haxx.se/usingcurl-netrc.html) to define your username
@@ -69,12 +69,13 @@ server. They are only used _locally_ by `curl` once import.pw redirects
 to the private repo URL.
 
 
-## Bootstrapping the `import.sh` script
+## 🐔🥚 Bootstrapping the `import.sh` script
 
 Since the `import.sh` file itself defines the `import()` function, you naturally
-can not _use_ the `import` function to load the import script. 🐔🥚
+can not _use_ the `import` function to load the import script. This is a classic
+chicken vs. egg problem!
 
-The "quick and pretty" way it to simply `curl` + `eval` the import script:
+The "quick and dirty" way is to simply `curl` + `eval` the import script:
 
 ```bash
 eval "`curl -sfLS import.pw`"
