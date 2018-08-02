@@ -42,8 +42,9 @@ add 7 11
 
 ## Authentication
 
-Because `import` uses `curl`, you can use the standard `.netrc` file format to
-define your username and passwords to the server you are importing from.
+Because `import` uses `curl`, you can use the standard [`.netrc` file
+format](https://ec.haxx.se/usingcurl-netrc.html) to define your username
+and passwords to the server you are importing from.
 
 For exampe, to make script files in private GitHub repos accessible, create a
 `~/.netrc` file that contains something like:
