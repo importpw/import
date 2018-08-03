@@ -64,9 +64,9 @@ After that, an `import` call to a private repo will work as expected:
 import "import.pw/my-private-org/repo@1.0.0"
 ```
 
-Your GitHub credentials and token **ARE NEVER** given to the `import.pw`
-server. They are only used _locally_ by `curl` once import.pw redirects
-to the private repo URL.
+Your GitHub credentials **ARE NEVER** given to the `import.pw` server.
+They are only used _locally_ by `curl` once import.pw redirects to the
+private repo URL.
 
 
 ## 🐔🥚 Bootstrapping the `import.sh` script
