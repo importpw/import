@@ -49,6 +49,11 @@ import() {
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully imported '$url' -> '$cache/$hash'" >&2
   fi
 
+  # Reset the `import` command args. There's not really a good reason to pass
+  # the URL to the sourced script, and in fact could cause indesireable results.
+  # i.e. This is required to make `import.pw/kward/shunit2` work out of the box.
+  set --
+
   # At this point, the file has been saved to the cache so
   # either source it or print it.
   if [ -z "${print-}" ]; then
