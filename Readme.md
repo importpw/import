@@ -15,7 +15,7 @@ your feet and it will work offline / on an airplane.
 
 ## 👋 Example
 
-This gist (https://git.io/f4SOX) contains a simple `add()` shell function:
+This gist (https://git.io/f4SOX) contains a simple `add` shell function:
 
 ```bash
 add() {
@@ -71,7 +71,7 @@ private repo URL.
 
 ## 🐔🥚 Bootstrapping the `import.sh` script
 
-Since the `import.sh` file itself defines the `import()` function, you naturally
+Since the `import.sh` file itself defines the `import` function, you naturally
 can not _use_ the `import` function to load the import script. This is a classic
 chicken vs. egg problem!
 
