@@ -4,10 +4,10 @@
 shells.
 
 Inspired by Go's import command, you specify the URI of the shell script,
-and the `import` function downloads it and caches it to `~/.import-cache`
+and the `import` function downloads the file and caches it to `~/.import-cache`
 _forever_.
 
-The code will never change from below your feet and it will work offline.
+The code will never change from below your feet and will work offline.
 
 
 ## Compatibility
