@@ -7,7 +7,7 @@ and the `import` function downloads it and caches it to `~/.import-cache`
 (by default) _forever_. This way, the code will never change from below
 your feet and it will work offline / on an airplane.
 
-### Dependencies
+## Dependencies
 
  * `curl`
  * `sha1sum`
