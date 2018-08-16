@@ -1,16 +1,22 @@
-# [import.pw](https://import.pw)
+# [import](https://import.pw)
 
-URL `import` function for shell scripts with caching.
+`import` is a simple and fast import and module system for Bash and other Unix
+shells.
 
 Inspired by Go's import command, you specify the URI of the shell script,
 and the `import` function downloads it and caches it to `~/.import-cache`
-(by default) _forever_. This way, the code will never change from below
-your feet and it will work offline / on an airplane.
+_forever_.
 
-## Dependencies
+The code will never change from below your feet and it will work offline.
 
- * `curl`
- * `sha1sum`
+
+## Compatibility
+
+`import` is unit tested against the following shell implementations:
+
+ * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox's shell)
+ * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
+ * [`zsh`](https://en.wikipedia.org/wiki/Z_shell) (Z shell)
 
 
 ## 👋 Example
