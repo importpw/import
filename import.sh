@@ -50,7 +50,7 @@ import() {
   fi
 
   # Reset the `import` command args. There's not really a good reason to pass
-  # the URL to the sourced script, and in fact could cause indesireable results.
+  # the URL to the sourced script, and in fact could cause undesirable results.
   # i.e. This is required to make `import.pw/kward/shunit2` work out of the box.
   set --
 
