@@ -21,7 +21,7 @@ The code will never change from below your feet and will work offline.
 
 ## 👋 Example
 
-This gist (https://git.io/f4SOX) contains a simple `add` shell function:
+This gist https://git.io/f4SOX contains a simple `add` shell function:
 
 ```bash
 add() {
