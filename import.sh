@@ -42,7 +42,9 @@ import() {
 
     # Create a relative symlink for this import pointing to the hashed file.
     local relative
-    relative="$(echo "${link_dir:${#cache}}" | sed 's/\/[^/]*/..\//g')$hash" || return
+    local cache_start
+    cache_start="$(expr "${#cache}" + 1)"
+    relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')$hash" || return
     [ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
     ln -fs${IMPORT_DEBUG+v} "$relative" "$cache/$url" >&2 || return
 
