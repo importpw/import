@@ -15,8 +15,8 @@ The code will never change from below your feet and will work offline.
 `import` is unit tested against the following shell implementations:
 
  * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox's shell)
- * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
  * [`zsh`](https://en.wikipedia.org/wiki/Z_shell) (Z shell)
+ * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
 
 
 ## 👋 Example
