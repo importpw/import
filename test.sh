@@ -4,7 +4,7 @@ set -eu
 IMPORT_CACHE=cache
 IMPORT_DEBUG=1
 IMPORT_RELOAD=1
-source "./import.sh"
+. "./import.sh"
 
 import "import.pw/assert@2.1.1"
 import "http://import.pw/assert@2.1.1"

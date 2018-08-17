@@ -57,7 +57,7 @@ import() {
   # At this point, the file has been saved to the cache so
   # either source it or print it.
   if [ -z "${print-}" ]; then
-    source "$cache/$url" || return
+    . "$cache/$url" || return
   else
     echo "$cache/$url"
   fi
