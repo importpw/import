@@ -8,7 +8,7 @@ import() {
   local cache="${IMPORT_CACHE-${HOME}/.import-cache}"
 
   # Apply the default server if the user is doing an implicit import
-  if ! echo "$url" | awk -F/ '{print $1}' | grep '\.' > /dev/null; then
+  if ! echo "$url" | grep "://" > /dev/null && ! echo "$url" | awk -F/ '{print $1}' | grep '\.' > /dev/null; then
     url="${IMPORT_SERVER-import.pw}/$url"
   fi
 
