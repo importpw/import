@@ -1,7 +1,6 @@
 # [import](https://import.pw)
 
-`import` is a simple and fast import and module system for Bash and other Unix
-shells.
+`import` is a simple and fast module system for Bash and other Unix shells.
 
 Inspired by Go's import command, you specify the URI of the shell script,
 and the `import` function downloads the file and caches it to `~/.import-cache`
