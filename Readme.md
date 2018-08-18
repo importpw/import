@@ -14,7 +14,7 @@ offline.
 
 `import` is unit tested against the following shell implementations:
 
- * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox's shell)
+ * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox ash and Debian dash)
  * [`ksh`](https://en.wikipedia.org/wiki/KornShell) (KornShell, loksh and mksh flavors)
  * [`zsh`](https://en.wikipedia.org/wiki/Z_shell) (Z shell)
  * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
