@@ -56,7 +56,7 @@ and passwords to the server you are importing from.
 For exampe, to make script files in private GitHub repos accessible, create a
 `~/.netrc` file that contains something like:
 
-```
+```ini
 machine raw.githubusercontent.com
 login 231a4602aeb1fbcf164f7c444ae5a211c1451d95
 password x-oauth-basic
@@ -67,7 +67,7 @@ Follow the instructions in that link to create one for yourself.
 
 After that, an `import` call to a private repo will work as expected:
 
-```
+```bash
 import "import.pw/my-private-org/repo@1.0.0"
 ```
 
