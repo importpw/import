@@ -57,8 +57,8 @@ For exampe, to make script files in private GitHub repos accessible, create a
 `~/.netrc` file that contains something like:
 
 ```ini
-machine raw.githubusercontent.com
-login 231a4602aeb1fbcf164f7c444ae5a211c1451d95
+machine  raw.githubusercontent.com
+login    231a4602aeb1fbcf164f7c444ae5a211c1451d95
 password x-oauth-basic
 ```
 
