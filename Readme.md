@@ -39,7 +39,7 @@ your own script:
 # Bootstrap the `import` function
 eval "`curl -sfLS import.pw`"
 
-# The gist is downloaded once, cached forever, and then `source`d into your script
+# The gist is downloaded once, cached forever, and then sourced
 import "git.io/f4SOX"
 
 add 7 11
