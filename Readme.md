@@ -68,11 +68,11 @@ Follow the instructions in that link to create one for yourself.
 After that, an `import` call to a private repo will work as expected:
 
 ```bash
-import "import.pw/my-private-org/repo@1.0.0"
+import "my-company/private-repo@1.0.0"
 ```
 
 Your GitHub credentials **ARE NEVER** given to the `import.pw` server.
-They are only used _locally_ by `curl` once import.pw redirects to the
+They are only used _locally_ by `curl` once the server redirects to the
 private repo URL.
 
 
@@ -85,7 +85,7 @@ chicken vs. egg problem!
 The "quick and dirty" way is to simply `curl` + `eval` the import script:
 
 ```bash
-eval "`curl -sfLS import.pw`"
+eval "`curl -sfLS https://import.pw`"
 ```
 
 However, this involves an HTTP request every time that the shell script is run,
