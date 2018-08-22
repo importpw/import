@@ -10,16 +10,6 @@ The code will never change from below your feet, and will continute to work
 offline.
 
 
-## Compatibility
-
-`import` is unit tested against the following shell implementations:
-
- * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox ash and Debian dash)
- * [`ksh`](https://en.wikipedia.org/wiki/KornShell) (KornShell, loksh and mksh flavors)
- * [`zsh`](https://en.wikipedia.org/wiki/Z_shell) (Z shell)
- * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
-
-
 ## 👋 Example
 
 This gist https://git.io/f4SOX contains a simple `add` shell function:
@@ -45,6 +35,16 @@ import "git.io/f4SOX"
 add 7 11
 # 18
 ```
+
+
+## ⚙️ Compatibility
+
+`import` is unit tested against the following shell implementations:
+
+ * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox ash and Debian dash)
+ * [`ksh`](https://en.wikipedia.org/wiki/KornShell) (KornShell, loksh and mksh flavors)
+ * [`zsh`](https://en.wikipedia.org/wiki/Z_shell) (Z shell)
+ * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
 
 
 ## 🔑 Authentication
