@@ -1,3 +1,5 @@
+#!/bin/sh
+
 import() {
   local url="$1"
   [ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
@@ -69,3 +71,17 @@ import() {
     echo "$cache/$url"
   fi
 }
+
+
+# For `#!/usr/bin/env import`
+if [ -n "${ZSH_EVAL_CONTEXT-}" ]; then
+  if [ "${ZSH_EVAL_CONTEXT-}" = "toplevel" ]; then
+    __import_entrypoint="$1"
+    shift
+    . "$__import_entrypoint"
+  fi
+elif [ "$(basename "$0" .sh)" = "import" ]; then
+  __import_entrypoint="$1"
+  shift
+  . "$__import_entrypoint"
+fi
