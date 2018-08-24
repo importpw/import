@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# Only `shasum  is present on MacOS by default,
+# but only `sha1sum` is present on Alpine by default
+__import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
+  r=$?
+  echo "import: no \`shasum\` or \`sha1sum\` command present" >&2
+  exit "$r"
+}
+[ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
+
 import() {
   local url="$1"
   [ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
@@ -36,7 +45,7 @@ import() {
 
     # Calculate the sha1 hash of the contents of the downloaded file.
     local hash
-    hash="$(sha1sum < "$tmpfile" | { read -r first rest; echo "$first"; })" || return
+    hash="$("$__import_shasum" < "$tmpfile" | { read -r first rest; echo "$first"; })" || return
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: calculated hash '$url' -> '$hash'" >&2
 
     # If the hashed file doesn't exist then move it into place,
