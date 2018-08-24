@@ -42,10 +42,11 @@ import() {
       local is_redirect=0
       while IFS='' read -r line; do
         # Strip trailing CR
-        line=${line%%$'\r'}
+        line="$(printf "%s" "$line" | tr -d \\r)"
         if [ -z "$line" ]; then
           if [ "$is_redirect" -eq 0 ]; then
             # End of headers
+            [ -n "${IMPORT_DEBUG-}" ] && echo "import: end of headers '$url'" >&2
             break
           else
             # This is the end of redirect, and it is expected that more
