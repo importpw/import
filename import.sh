@@ -9,6 +9,34 @@ __import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
 }
 [ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
 
+import_parse_headers() {
+  local location=
+  local is_redirect=0
+  while IFS='' read -r line; do
+    # Strip trailing CR
+    line="$(printf "%s" "$line" | tr -d \\r)"
+    #echo "line: $line" >&2
+    if [ -z "$line" ]; then
+      if [ "$is_redirect" -eq 0 ]; then
+        # End of headers
+        [ -n "${IMPORT_DEBUG-}" ] && echo "import: end of headers '$url'" >&2
+        break
+      else
+        # This is the end of redirect, and it is expected that more
+        # headers are coming, so continue parsing the headers
+        is_redirect=0
+      fi
+    elif echo "$line" | grep -i '^location:' >/dev/null; then
+      is_redirect=1
+      location="$(echo "$line" | awk -F": " '{print $2}')"
+    elif echo "$line" | grep -i '^content-location:' >/dev/null; then
+      location="$(echo "$line" | awk -F": " '{print $2}')"
+    fi
+  done
+  [ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
+  cat
+}
+
 import() {
   local url="$1"
   [ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
@@ -37,37 +65,20 @@ import() {
     # Download the requested file to a temporary place so that the shasum
     # can be computed to determine the proper final filename.
     local tmpfile="$cache/$url.tmp"
-    curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" | (
-      local location=
-      local is_redirect=0
-      while IFS='' read -r line; do
-        # Strip trailing CR
-        line="$(printf "%s" "$line" | tr -d \\r)"
-        if [ -z "$line" ]; then
-          if [ "$is_redirect" -eq 0 ]; then
-            # End of headers
-            [ -n "${IMPORT_DEBUG-}" ] && echo "import: end of headers '$url'" >&2
-            break
-          else
-            # This is the end of redirect, and it is expected that more
-            # headers are coming, so continue parsing the headers
-            is_redirect=0
-          fi
-        elif echo "$line" | grep -i '^location:' >/dev/null; then
-          is_redirect=1
-          location="$(echo "$line" | awk -F": " '{print $2}')"
-        elif echo "$line" | grep -i '^content-location:' >/dev/null; then
-          location="$(echo "$line" | awk -F": " '{print $2}')"
-        fi
-      done
-      [ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
-      cat
-    ) > "$tmpfile" || {
+    local tmpfifo="$cache/$url.fifo"
+    rm -f "$tmpfifo"
+    mkfifo "$tmpfifo"
+    import_parse_headers < "$tmpfifo" > "$tmpfile" &
+    local parse_pid="$!"
+    curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" > "$tmpfifo" || {
       r=$?
+      wait "$parse_pid"
       echo "import: failed to download: $url" >&2
-      rm "$tmpfile" || return
+      rm "$tmpfile" "$tmpfifo" || return
       return "$r"
     }
+    wait "$parse_pid"
+    rm "$tmpfifo" || return
 
     # Calculate the sha1 hash of the contents of the downloaded file.
     local hash
