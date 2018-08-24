@@ -76,12 +76,30 @@ import() {
 # For `#!/usr/bin/env import`
 if [ -n "${ZSH_EVAL_CONTEXT-}" ]; then
   if [ "${ZSH_EVAL_CONTEXT-}" = "toplevel" ]; then
-    __import_entrypoint="$1"
-    shift
-    . "$__import_entrypoint"
+    __import_entrypoint="1"
   fi
 elif [ "$(basename "$0" .sh)" = "import" ]; then
-  __import_entrypoint="$1"
-  shift
-  . "$__import_entrypoint"
+  __import_entrypoint="1"
+fi
+
+if [ -n "${__import_entrypoint-}" ]; then
+  # Parse argv
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -s=*|--shell=*) __import_shell="${1#*=}"; shift 1;;
+      -s|--shell) __import_shell="${2}"; shift 2;;
+      -*) echo "import: unknown option $1" >&2 && exit 2;;
+      *) break;;
+    esac
+  done
+
+  if [ -n "$__import_shell" ]; then
+    echo "$__import_shell" "$0" "$@"
+    "$__import_shell" "$0" "$@"
+  else
+    __import_entrypoint="$1"
+    shift
+
+    . "$__import_entrypoint"
+  fi
 fi
