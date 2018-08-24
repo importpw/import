@@ -19,7 +19,7 @@ import_parse_headers() {
     if [ -z "$line" ]; then
       if [ "$is_redirect" -eq 0 ]; then
         # End of headers
-        #[ -n "${IMPORT_DEBUG-}" ] && echo "import: end of headers '$url'" >&2
+        [ -n "${IMPORT_DEBUG-}" ] && echo "import: end of headers '$url'" >&2
         break
       else
         # This is the end of redirect, and it is expected that more
@@ -33,7 +33,7 @@ import_parse_headers() {
       location="$(echo "$line" | awk -F": " '{print $2}')"
     fi
   done
-  #[ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
+  [ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
   cat
 }
 
@@ -72,6 +72,7 @@ import() {
     local parse_pid="$!"
     curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" > "$tmpfifo" || {
       r=$?
+      wait "$parse_pid"
       echo "import: failed to download: $url" >&2
       rm "$tmpfile" "$tmpfifo" || return
       return "$r"
