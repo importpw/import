@@ -20,7 +20,8 @@ import() {
 
   # Apply the default server if the user is doing an implicit import
   if ! echo "$url" | grep "://" > /dev/null && ! echo "$url" | awk -F/ '{print $1}' | grep '\.' > /dev/null; then
-    url="${IMPORT_SERVER-import.pw}/$url"
+    url="${IMPORT_SERVER-https://import.pw}/$url"
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
   fi
 
   if [ ! -e "$cache/$url" ] || [ -n "${IMPORT_RELOAD-}" ]; then
