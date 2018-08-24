@@ -139,7 +139,7 @@ if [ -n "${__import_entrypoint-}" ]; then
     esac
   done
 
-  if [ -n "$__import_shell" ]; then
+  if [ -n "${__import_shell-}" ]; then
     # If the script requested a specific shell, then relaunch using it
     "$__import_shell" "$0" "$@"
   else
