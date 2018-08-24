@@ -94,12 +94,11 @@ if [ -n "${__import_entrypoint-}" ]; then
   done
 
   if [ -n "$__import_shell" ]; then
-    echo "$__import_shell" "$0" "$@"
+    # If the script requested a specific shell, then relaunch using it
     "$__import_shell" "$0" "$@"
   else
     __import_entrypoint="$1"
     shift
-
     . "$__import_entrypoint"
   fi
 fi
