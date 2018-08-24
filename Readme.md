@@ -24,10 +24,7 @@ You can use the `import` function to download, cache, and use that function in
 your own script:
 
 ```bash
-#!/bin/sh
-
-# Bootstrap the `import` function
-eval "`curl -sfLS import.pw`"
+#!/usr/bin/env import
 
 # The gist is downloaded once, cached forever, and then sourced
 import "git.io/f4SOX"
