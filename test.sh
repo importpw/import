@@ -15,3 +15,8 @@ print=1 import "https://import.pw/assert@2.1.1"
 tree cache
 #assert 1 = 2
 assert 1 = 1
+
+
+r=0
+import 404 || r=$?
+assert "$r" -ne 0
