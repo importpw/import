@@ -5,7 +5,6 @@
 __import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
   r=$?
   echo "import: no \`shasum\` or \`sha1sum\` command present" >&2
-  rm "$tmpfile" || return
   exit "$r"
 }
 [ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
