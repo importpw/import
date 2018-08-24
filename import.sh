@@ -37,7 +37,31 @@ import() {
     # Download the requested file to a temporary place so that the shasum
     # can be computed to determine the proper final filename.
     local tmpfile="$cache/$url.tmp"
-    curl -fsSL --netrc-optional ${IMPORT_CURL_OPTS-} "$url" > "$tmpfile" || {
+    curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" | (
+      local location=
+      local is_redirect=0
+      while IFS='' read -r line; do
+        # Strip trailing CR
+        line=${line%%$'\r'}
+        if [ -z "$line" ]; then
+          if [ "$is_redirect" -eq 0 ]; then
+            # End of headers
+            break
+          else
+            # This is the end of redirect, and it is expected that more
+            # headers are coming, so continue parsing the headers
+            is_redirect=0
+          fi
+        elif echo "$line" | grep -i '^location:' >/dev/null; then
+          is_redirect=1
+          location="$(echo "$line" | awk -F": " '{print $2}')"
+        elif echo "$line" | grep -i '^content-location:' >/dev/null; then
+          location="$(echo "$line" | awk -F": " '{print $2}')"
+        fi
+      done
+      [ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
+      cat
+    ) > "$tmpfile" || {
       r=$?
       echo "import: failed to download: $url" >&2
       rm "$tmpfile" || return
