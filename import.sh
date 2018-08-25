@@ -126,9 +126,10 @@ import() {
   # At this point, the file has been saved to the cache so
   # either source it or print it.
   if [ -z "${print-}" ]; then
-    __import_url="$url"
+    __import_parent_location="${__import_location-}"
     __import_location="$(cat "$cache_url.location")"
     . "$cache_url" || return
+    __import_location="$__import_parent_location"
   else
     echo "$cache_url"
   fi
