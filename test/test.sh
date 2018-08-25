@@ -37,5 +37,10 @@ if ! import warning 2>&1 | grep "This server has moved to xxxxx.sh" >/dev/null; 
   exit 1
 fi
 
+# Test relative import
+import relative
+test "$(relative)" = "relative"
+test "$(subdir_rel)" = "subdir_rel"
+
 
 echo "Tests passed!"

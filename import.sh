@@ -35,13 +35,21 @@ import_parse_headers() {
       echo "import: warning - $(echo "$line" | awk -F": " '{print $2}')" >&2
     fi
   done
-  [ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
+  # Write the resolved URL location of this import to the cache
+  echo "$location" > "$2"
   cat
 }
 
 import() {
   local url="$1"
   [ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
+
+  # If this is a relative import than it need to be based off of
+  # the parent import's resolved URL location.
+  case "$url" in
+    (./*) url="$(dirname "$__import_location")/$url";;
+    (../*) url="$(dirname "$__import_location")/$url";;
+  esac
 
   # The base directory for the import cache.
   # Defaults to `$HOME/.import_cache`.
@@ -54,7 +62,9 @@ import() {
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
   fi
 
-  if [ ! -e "$cache/$url" ] || [ -n "${IMPORT_RELOAD-}" ]; then
+  local cache_url="$cache/$url"
+
+  if [ ! -e "$cache_url" ] || [ -n "${IMPORT_RELOAD-}" ]; then
     # Ensure that the directory containing the symlink for this import exists.
     local link_dir
     link_dir="$cache/$(dirname "$url")"
@@ -66,21 +76,23 @@ import() {
 
     # Download the requested file to a temporary place so that the shasum
     # can be computed to determine the proper final filename.
-    local tmpfile="$cache/$url.tmp"
-    local tmpfifo="$cache/$url.fifo"
+    local tmpfile="$cache_url.tmp"
+    local tmpfifo="$cache_url.fifo"
+    local locfile="$cache_url.location"
     rm -f "$tmpfifo"
     mkfifo "$tmpfifo"
-    import_parse_headers "$url" < "$tmpfifo" > "$tmpfile" &
+    import_parse_headers "$url" "$locfile" < "$tmpfifo" > "$tmpfile" &
     local parse_pid="$!"
     curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" > "$tmpfifo" || {
       r=$?
       wait "$parse_pid"
       echo "import: failed to download: $url" >&2
-      rm "$tmpfile" "$tmpfifo" || return
+      rm "$tmpfile" "$tmpfifo" "$locfile" || return
       return "$r"
     }
     wait "$parse_pid"
     rm "$tmpfifo" || return
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$(cat "$locfile")'" >&2
 
     # Calculate the sha1 hash of the contents of the downloaded file.
     local hash
@@ -101,7 +113,7 @@ import() {
     cache_start="$(expr "${#cache}" + 1)"
     relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')$hash" || return
     [ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
-    ln -fs${IMPORT_DEBUG+v} "$relative" "$cache/$url" >&2 || return
+    ln -fs${IMPORT_DEBUG+v} "$relative" "$cache_url" >&2 || return
 
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully imported '$url' -> '$cache/$hash'" >&2
   fi
@@ -114,9 +126,12 @@ import() {
   # At this point, the file has been saved to the cache so
   # either source it or print it.
   if [ -z "${print-}" ]; then
-    . "$cache/$url" || return
+    __import_parent_location="${__import_location-}"
+    __import_location="$(cat "$cache_url.location")"
+    . "$cache_url" || return
+    __import_location="$__import_parent_location"
   else
-    echo "$cache/$url"
+    echo "$cache_url"
   fi
 }
 
