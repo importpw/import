@@ -16,6 +16,7 @@ FROM base
 RUN sh ./test.sh
 
 FROM base
+# Really `loksh`
 RUN ksh ./test.sh
 
 FROM base
