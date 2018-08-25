@@ -1,3 +1,3 @@
 relative() {
-  echo relative-dest
+  echo relative
 }

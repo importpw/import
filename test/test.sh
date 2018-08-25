@@ -39,7 +39,8 @@ fi
 
 # Test relative import
 import relative
-test "$(relative)" = "relative-dest"
+test "$(relative)" = "relative"
+test "$(subdir_rel)" = "subdir_rel"
 
 
 echo "Tests passed!"
