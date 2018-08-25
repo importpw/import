@@ -31,5 +31,11 @@ r=0
 import does_not_exist || r="$?"
 test "$r" -ne 0
 
+# Test "X-Import-Warning"
+if ! import warning 2>&1 | grep "This server has moved to xxxxx.sh" >/dev/null; then
+  echo "X-Import-Warning was not rendered" >&2
+  exit 1
+fi
+
 
 echo "Tests passed!"
