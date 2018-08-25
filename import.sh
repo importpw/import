@@ -10,7 +10,7 @@ __import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
 [ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
 
 import_parse_headers() {
-  local location=
+  local location="$1"
   local is_redirect=0
   while IFS='' read -r line; do
     # Strip trailing CR
@@ -68,7 +68,7 @@ import() {
     local tmpfifo="$cache/$url.fifo"
     rm -f "$tmpfifo"
     mkfifo "$tmpfifo"
-    import_parse_headers < "$tmpfifo" > "$tmpfile" &
+    import_parse_headers "$url" < "$tmpfifo" > "$tmpfile" &
     local parse_pid="$!"
     curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" > "$tmpfifo" || {
       r=$?
