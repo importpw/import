@@ -31,6 +31,8 @@ import_parse_headers() {
       location="$(echo "$line" | awk -F": " '{print $2}')"
     elif echo "$line" | grep -i '^content-location:' >/dev/null; then
       location="$(echo "$line" | awk -F": " '{print $2}')"
+    elif echo "$line" | grep -i '^x-import-warning:' >/dev/null; then
+      echo "import: warning - $(echo "$line" | awk -F": " '{print $2}')" >&2
     fi
   done
   [ -n "${IMPORT_DEBUG-}" ] && echo "import: location '$url' -> '$location'" >&2
