@@ -46,10 +46,10 @@ import() {
 
   # If this is a relative import than it need to be based off of
   # the parent import's resolved URL location.
-  if [ "${url:0:2}" = "./" ] || [ "${url:0:3}" = "../" ]; then
-    url="$(dirname "$__import_location")/${url}"
-    [ -n "${IMPORT_DEBUG-}" ] && echo "import: relativized URL '$url'" >&2
-  fi
+  case "$url" in
+    (./*) url="$(dirname "$__import_location")/$url";;
+    (../*) url="$(dirname "$__import_location")/$url";;
+  esac
 
   # The base directory for the import cache.
   # Defaults to `$HOME/.import_cache`.
