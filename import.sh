@@ -62,23 +62,26 @@ import() {
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
   fi
 
-  local cache_url="$cache/$url"
+  local cache_url="$cache/links/$url"
 
   if [ ! -e "$cache_url" ] || [ -n "${IMPORT_RELOAD-}" ]; then
     # Ensure that the directory containing the symlink for this import exists.
-    local link_dir
-    link_dir="$cache/$(dirname "$url")"
-    mkdir -p${IMPORT_DEBUG+v} "$link_dir" >&2 || return
+    local dir
+    dir="$(dirname "$url")"
+
+    local link_dir="$cache/links/$dir"
+    mkdir -p${IMPORT_DEBUG+v} "$link_dir" "$cache/data" "$cache/locations/$dir" >&2 || return
 
     # Resolve the cache and link dirs with `pwd` now that the directories exist.
     cache="$( ( cd "$cache" && pwd ) )" || return
     link_dir="$( ( cd "$link_dir" && pwd ) )" || return
+    cache_url="$cache/links/$url"
 
     # Download the requested file to a temporary place so that the shasum
     # can be computed to determine the proper final filename.
     local tmpfile="$cache_url.tmp"
     local tmpfifo="$cache_url.fifo"
-    local locfile="$cache_url.location"
+    local locfile="$cache/locations/$url"
     rm -f "$tmpfifo"
     mkfifo "$tmpfifo"
     import_parse_headers "$url" "$locfile" < "$tmpfifo" > "$tmpfile" &
@@ -99,23 +102,25 @@ import() {
     hash="$("$__import_shasum" < "$tmpfile" | { read -r first rest; echo "$first"; })" || return
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: calculated hash '$url' -> '$hash'" >&2
 
+    local hash_file="$cache/data/$hash"
+
     # If the hashed file doesn't exist then move it into place,
     # otherwise delete the temp file - it's no longer needed.
-    if [ -f "$cache/$hash" ]; then
+    if [ -f "$hash_file" ]; then
       rm "$tmpfile" || return
     else
-      mv "$tmpfile" "$cache/$hash" || return
+      mv "$tmpfile" "$hash_file" || return
     fi
 
     # Create a relative symlink for this import pointing to the hashed file.
     local relative
     local cache_start
     cache_start="$(expr "${#cache}" + 1)"
-    relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')$hash" || return
+    relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')data/$hash" || return
     [ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
     ln -fs${IMPORT_DEBUG+v} "$relative" "$cache_url" >&2 || return
 
-    [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully imported '$url' -> '$cache/$hash'" >&2
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully imported '$url' -> '$hash_file'" >&2
   fi
 
   # Reset the `import` command args. There's not really a good reason to pass
@@ -127,7 +132,7 @@ import() {
   # either source it or print it.
   if [ -z "${print-}" ]; then
     __import_parent_location="${__import_location-}"
-    __import_location="$(cat "$cache_url.location")"
+    __import_location="$(cat "$cache/locations/$url")"
     . "$cache_url" || return
     __import_location="$__import_parent_location"
   else
