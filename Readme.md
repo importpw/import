@@ -38,8 +38,8 @@ add 7 11
 
 `import` is unit tested against the following shell implementations:
 
- * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (BusyBox ash and Debian dash)
- * [`ksh`](https://en.wikipedia.org/wiki/KornShell) (KornShell, loksh and mksh flavors)
+ * [`ash`](https://en.wikipedia.org/wiki/Almquist_shell) (Almquist Shell - BusyBox ash and Debian dash)
+ * [`ksh`](https://en.wikipedia.org/wiki/KornShell) (KornShell - oksh, mksh and loksh flavors)
  * [`zsh`](https://en.wikipedia.org/wiki/Z_shell) (Z shell)
  * [`bash`](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (GNU's Bourne Again SHell)
 
