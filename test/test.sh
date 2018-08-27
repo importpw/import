@@ -26,6 +26,10 @@ IMPORT_SERVER="${nginx_addr}"
 import foo
 test "$(foo)" = "foo"
 
+# Test basic import with `@` symbol
+import foo@1.0.0
+test "$(foo1)" = "foo1"
+
 # Test 404
 r=0
 import does_not_exist || r="$?"
