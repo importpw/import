@@ -65,7 +65,7 @@ Follow the instructions in that link to create one for yourself.
 After that, an `import` call to a private repo will work as expected:
 
 ```bash
-import "my-company/private-repo@1.0.0"
+import my-company/private-repo@1.0.0
 ```
 
 Your GitHub credentials **ARE NEVER** given to the `import.pw` server.
