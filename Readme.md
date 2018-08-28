@@ -82,7 +82,7 @@ chicken vs. egg problem!
 The "quick and dirty" way is to simply `curl` + `eval` the import script:
 
 ```bash
-eval "`curl -sfLS https://import.pw`"
+eval "$(curl -sfLS https://import.pw)"
 ```
 
 However, this involves an HTTP request every time that the shell script is run,
