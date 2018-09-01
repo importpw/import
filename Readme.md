@@ -45,7 +45,7 @@ is the goal. `import` is unit tested against the following shell implementations
  * [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - GNU's Bourne Again SHell
 
 
-## 📚Documentation
+## 📚 Documentation
 
  * [Install](./docs/install.md) - Installing and bootstrapping `import`
  * [Caching](./docs/caching.md) - Explanation of the caching strategy
