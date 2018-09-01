@@ -34,7 +34,7 @@ repositories that are "import-compatible" according to its _conventions_:
 
  * The main import syntax is `import <org>/<repo>`
  * The entry point of the module is the file with the name of the repo with a `.sh` suffix
- * If there is no `/` in the import path, than the default org ([`importpw`][importpw]) is applied
+ * If there is no `/` in the import path, than the default org ([importpw][]) is applied
  * Specific tags may be referenced by appending an `@<version>` to the end
 
 [hello]: https://github.com/TooTallNate/hello
