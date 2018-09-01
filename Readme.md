@@ -2,7 +2,7 @@
 
 `import` is a simple and fast module system for Bash and other Unix shells.
 
-Inspired by Go's import command, you specify the URI of the shell script,
+Inspired by Go's import command, you specify the URL of the shell script,
 and the `import` function downloads the file and caches it to `~/.import-cache`,
 _forever_.
 
@@ -47,9 +47,11 @@ is the goal. `import` is unit tested against the following shell implementations
 
 ## 📚 Documentation
 
- * [Install](./docs/install.md) - Installing and bootstrapping `import`
+ * [Authentication](./docs/authentication.md) - Making private GitHub repos work
  * [Caching](./docs/caching.md) - Explanation of the caching strategy
  * [Configuration](./docs/config.md) - Customizing `import` with env vars
- * [Authentication](./docs/authentication.md) - Making private GitHub repos work
+ * [Install](./docs/install.md) - Installing and bootstrapping `import`
+ * [Implicit Imports](./docs/implicit-imports.md) - Importing "core" modules
+ * [Relative Imports](./docs/relative-imports.md) - Implementation for relative imports
 
 [gist]: https://git.io/fAWiz
