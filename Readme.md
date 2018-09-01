@@ -36,8 +36,8 @@ add 7 11
 
 ## ⚙️ Compatibility
 
-Maximum compatability is the goal for the core `import` function.
-`import` is unit tested against the following shell implementations:
+The core `import` function is fully POSIX-compliant, and maximum compatability
+is the goal. `import` is unit tested against the following shell implementations:
 
  * [ash](https://en.wikipedia.org/wiki/Almquist_shell) (Almquist Shell - BusyBox `ash` and Debian `dash`)
  * [ksh](https://en.wikipedia.org/wiki/KornShell) (KornShell - `oksh`, `mksh` and `loksh` flavors)
