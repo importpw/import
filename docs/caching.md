@@ -49,7 +49,7 @@ $ tree /tmp
             └── assert
 ```
 
-`import` generates *three* subdirectories under the `IMPORT_CACHE` directory:
+`import` generates **three** subdirectories under the `IMPORT_CACHE` directory:
 
  * `data` - The raw shell scripts, named after the sha1sum of the file contents
  * `links` - Symbolic links that are named according to the import URL

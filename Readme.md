@@ -12,11 +12,11 @@ offline.
 
 ## 👋 Example
 
-This gist https://git.io/f4SOX contains a simple `add` shell function:
+[git.io/fAWiz][gist] ← This URL contains a simple `add` shell function:
 
 ```bash
 add() {
-  echo "$(( $1 + $2 ))"
+  expr "$1" + "$2"
 }
 ```
 
@@ -26,11 +26,11 @@ your own script:
 ```bash
 #!/usr/bin/env import
 
-# The gist is downloaded once, cached forever, and then sourced
-import "git.io/f4SOX"
+# The URL is downloaded once, cached forever, and then sourced
+import git.io/fAWiz
 
-add 7 11
-# 18
+add 20 22
+# 42
 ```
 
 
@@ -51,3 +51,5 @@ is the goal. `import` is unit tested against the following shell implementations
  * [Caching](./docs/caching.md) - Explanation of the caching strategy
  * [Configuration](./docs/config.md) - Customizing `import` with env vars
  * [Authentication](./docs/authentication.md) - Making private GitHub repos work
+
+[gist]: https://git.io/fAWiz
