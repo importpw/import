@@ -29,7 +29,7 @@ hello
 
 ## The `import.pw` server
 
-The default `IMPORT_SERVER` is https://import.pw. This server proxies GitHub
+The default `IMPORT_SERVER` is https://import.pw, which serves GitHub
 repositories that are "import-compatible" according to its _conventions_:
 
  * The main import syntax is `import <org>/<repo>`
