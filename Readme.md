@@ -12,7 +12,7 @@ offline.
 
 ## 👋 Example
 
-[git.io/fAWiz][gist] ← This URL contains a simple `add` shell function:
+https://git.io/fAWiz ← This URL contains a simple `add` shell function:
 
 ```bash
 add() {
@@ -27,7 +27,7 @@ your own script:
 #!/usr/bin/env import
 
 # The URL is downloaded once, cached forever, and then sourced
-import git.io/fAWiz
+import https://git.io/fAWiz
 
 add 20 22
 # 42
@@ -53,5 +53,3 @@ is the goal. `import` is unit tested against the following shell implementations
  * [Implicit Imports](./docs/implicit-imports.md) - Importing "core" modules
  * [Installation](./docs/install.md) - Installing and bootstrapping `import`
  * [Relative Imports](./docs/relative-imports.md) - Implementation for relative imports
-
-[gist]: https://git.io/fAWiz
