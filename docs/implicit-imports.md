@@ -1,4 +1,4 @@
-# Implicit Imports
+## Implicit Imports
 
 Any `import` where the beginning portion (up to the first slash) of the
 URL _does not contain a `.`_ is considered an **implicit import**.

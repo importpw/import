@@ -1,14 +1,17 @@
-# 🐔🥚 Bootstrapping the `import.sh` script
-
-Since the `import.sh` file itself defines the `import` function, you naturally
-can not _use_ the `import` function to load the import script. This is a classic
-chicken vs. egg problem!
+## Installation
 
 The "quick and dirty" way is to simply `curl` + `eval` the import script:
 
 ```bash
 eval "$(curl -sfLS https://import.pw)"
 ```
+
+
+## 🐔🥚 Bootstrapping the `import` function
+
+Since the `import.sh` file itself defines the `import` function, you naturally
+can not _use_ the `import` function to load the import script. This is a classic
+chicken vs. egg problem!
 
 However, this involves an HTTP request every time that the shell script is run,
 and thus would not work offine and is not as optimized.

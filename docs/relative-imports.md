@@ -1,4 +1,4 @@
-# Relative Imports
+## Relative Imports
 
 Any `import` that begins with `./` or `../` is considered a **relative import**.
 

@@ -1,4 +1,4 @@
-# 🔑 Authentication
+## 🔑 Authentication
 
 Because `import` uses `curl`, you can use the standard [`.netrc` file
 format](https://ec.haxx.se/usingcurl-netrc.html) to define your username
