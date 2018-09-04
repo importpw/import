@@ -1,14 +1,13 @@
-## Implicit Imports
+## Namespaced Imports
 
 Any `import` where the beginning portion (up to the first slash) of the
-URL _does not contain a `.`_ is considered an **implicit import**.
+URL _does not contain a `.`_ is considered a **namespaced import**.
 
-An implicit import means that the `IMPORT_SERVER` (which defaults to
+A namespaced import means that the `IMPORT_SERVER` (which defaults to
 https://import.pw) is prepended to the import URL. For example, these
-import invocations are identical:
+two import invocations are identical:
 
  * `import assert`
- * `import import.pw/assert`
  * `import https://import.pw/assert`
 
 
@@ -38,10 +37,10 @@ repositories that are "import-compatible" according to its _conventions_:
  * Specific tags may be referenced by appending an `@<version>` to the end
 
 
-## Root imports
+## Top-level imports
 
 The [importpw][] GitHub organization houses the top-level namespace imports.
-A root import is implied when there is no `/` in the import path.
+A top-level import happens when there is no `/` in the import path.
 
 For example, the `assert` module includes functions that write simple unit
 testing scripts:
@@ -55,7 +54,7 @@ assert 1 = 2
 # assertion failed: 1 = 2
 ```
 
-Here are some useful root imports:
+Here are some useful top-level imports:
 
  * [array](https://import.pw/array)
  * [assert](https://import.pw/assert)
