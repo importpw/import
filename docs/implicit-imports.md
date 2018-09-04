@@ -56,10 +56,10 @@ assert 1 = 2
 
 Some other noteworthy root imports:
 
- * [confirm](https://github.com/importpw/confirm)
- * [http](https://github.com/importpw/http)
- * [querystring](https://github.com/importpw/querystring)
- * [tcp](https://github.com/importpw/tcp)
+ * [confirm](https://import.pw/confirm)
+ * [http](https://import.pw/http)
+ * [querystring](https://import.pw/querystring)
+ * [tcp](https://import.pw/tcp)
 
 [hello]: https://github.com/TooTallNate/hello
 [importpw]: https://github.com/importpw
