@@ -15,7 +15,7 @@ import invocations are identical:
 ## Example
 
 Let's take a look at importing this [tootallnate/hello][hello] "Hello World"
-module from GitHub:
+import from GitHub:
 
 ```bash
 #!/usr/bin/env import
@@ -33,9 +33,33 @@ The default `IMPORT_SERVER` is https://import.pw, which serves GitHub
 repositories that are "import-compatible" according to its _conventions_:
 
  * The main import syntax is `import <org>/<repo>`
- * The entry point of the module is the file with the name of the repo with a `.sh` suffix
- * If there is no `/` in the import path, than the default org ([importpw][]) is applied
+ * The entry point of the import is the file with the name of the repo with a `.sh` suffix
+ * If there is no `/` in the import path, then the default org ([importpw][]) is applied
  * Specific tags may be referenced by appending an `@<version>` to the end
+
+
+## "Root" imports
+
+The [importpw][] GitHub organization houses the "root" imports. A root import
+is implied when there is no `/` in the import path.
+
+For example, the `assert` module helps write simple unit testing scripts:
+
+```bash
+#!/usr/bin/env import
+
+import assert@1.0.0
+
+assert 1 = 2
+# assertion failed: 1 = 2
+```
+
+Some other noteworthy root imports:
+
+ * [confirm](https://github.com/importpw/confirm)
+ * [http](https://github.com/importpw/http)
+ * [querystring](https://github.com/importpw/querystring)
+ * [tcp](https://github.com/importpw/tcp)
 
 [hello]: https://github.com/TooTallNate/hello
 [importpw]: https://github.com/importpw
