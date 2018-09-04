@@ -48,18 +48,26 @@ For example, the `assert` module helps write simple unit testing scripts:
 ```bash
 #!/usr/bin/env import
 
-import assert@1.0.0
+import assert@2.1.3
 
 assert 1 = 2
 # assertion failed: 1 = 2
 ```
 
-Some other noteworthy root imports:
+Here are some useful root imports:
 
+ * [array](https://import.pw/array)
+ * [assert](https://import.pw/assert)
  * [confirm](https://import.pw/confirm)
+ * [dns](https://import.pw/dns)
+ * [emitter](https://import.pw/emitter)
  * [http](https://import.pw/http)
  * [querystring](https://import.pw/querystring)
+ * [path](https://import.pw/path)
+ * [prompt](https://import.pw/prompt)
  * [tcp](https://import.pw/tcp)
+
+See the [importpw][] org on GitHub for the complete listing of repositories.
 
 
 ## Community imports
