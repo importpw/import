@@ -57,7 +57,7 @@ type import
 
 #### Eval
 
-Finally, for times when `import` _is not installed_, it is possible to
+Finally, for scenarios when `import` _is not installed_, it is possible to
 `curl` + `eval` the import function directly into your shell script.
 
 ```bash

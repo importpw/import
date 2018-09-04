@@ -17,3 +17,18 @@ imported URL.
 When a script is imported, the HTTP headers are parsed, and the _final_
 `Location`/`Content-Location` header is considered the "location" of the script.
 This final URL gets cached to the filesystem in the `locations` directory.
+
+### Example
+
+Perhaps an example will help illustrate. If you inspect the response headers for
+the [`tootallnate/hello`](https://import.pw/tootalnate/hello), then you can see
+the `Content-Location` header is present:
+
+```
+$ curl -sI https://import.pw/tootallnate/hello | grep -i location
+content-location: https://raw.githubusercontent.com/tootallnate/hello/master/hello.sh
+```
+
+`import` keeps tracks of these URL locations, so that from _within the `hello.sh`
+script_, any relative import, let's say `import ./foo.sh`, will be normalized to
+relative of the current URL location.

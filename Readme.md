@@ -50,6 +50,6 @@ is the goal. `import` is unit tested against the following shell implementations
  * [Authentication](./docs/authentication.md) - Making private GitHub repos work
  * [Caching](./docs/caching.md) - Explanation of the caching strategy
  * [Configuration](./docs/config.md) - Customizing `import` with env vars
- * [Implicit Imports](./docs/implicit-imports.md) - Top-level and namespaced imports
  * [Installation](./docs/install.md) - Installing and bootstrapping `import`
+ * [Namespaced Imports](./docs/namespaced-imports.md) - Top-level and community modules
  * [Relative Imports](./docs/relative-imports.md) - Implementation for relative imports
