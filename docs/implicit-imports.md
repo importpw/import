@@ -43,7 +43,8 @@ repositories that are "import-compatible" according to its _conventions_:
 The [importpw][] GitHub organization houses the top-level namespace imports.
 A root import is implied when there is no `/` in the import path.
 
-For example, the `assert` module helps write simple unit testing scripts:
+For example, the `assert` module includes functions that write simple unit
+testing scripts:
 
 ```bash
 #!/usr/bin/env import
