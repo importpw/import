@@ -64,7 +64,7 @@ Some other noteworthy root imports:
 
 ## Community imports
 
-Here are some known GitHub repositories that are compatible with `import`:
+Here are some GitHub repositories that are known to be compatible with `import`:
 
  * [kward/log4sh](https://import.pw/kward/log4sh)
  * [kward/shflags](https://import.pw/kward/shflags)
