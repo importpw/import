@@ -66,6 +66,8 @@ Some other noteworthy root imports:
 
 Here are some known GitHub repositories that are compatible with `import`:
 
+ * [kward/log4sh](https://import.pw/kward/log4sh)
+ * [kward/shflags](https://import.pw/kward/shflags)
  * [kward/shunit2](https://import.pw/kward/shunit2)
  * [robwhitby/shakedown](https://import.pw/robwhitby/shakedown)
  * [tootallnate/nexec](https://import.pw/tootallnate/nexec)
