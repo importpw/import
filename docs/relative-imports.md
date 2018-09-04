@@ -11,7 +11,7 @@ of a function based on the shell interpreter).
 ## Implementation Details
 
 Relative imports are made possible primarily because of the `Location` and/or
-`Content-Location` HTTP headers provided by the server that is serving the
+`Content-Location` HTTP headers provided by the server that provides the
 imported URL.
 
 When a script is imported, the HTTP headers are parsed, and the _final_

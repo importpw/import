@@ -61,5 +61,16 @@ Some other noteworthy root imports:
  * [querystring](https://import.pw/querystring)
  * [tcp](https://import.pw/tcp)
 
+
+# Community imports
+
+Here are some known GitHub repositories that are compatible with `import`:
+
+ * [kward/shunit2](https://import.pw/kward/shunit2)
+ * [robwhitby/shakedown](https://import.pw/robwhitby/shakedown)
+ * [tootallnate/nexec](https://import.pw/tootallnate/nexec)
+
+(Send a [pull request](https://github.com/importpw/import/pulls) if you would like to have an import listed here)
+
 [hello]: https://github.com/TooTallNate/hello
 [importpw]: https://github.com/importpw
