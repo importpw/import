@@ -38,10 +38,10 @@ repositories that are "import-compatible" according to its _conventions_:
  * Specific tags may be referenced by appending an `@<version>` to the end
 
 
-## "Root" imports
+## Root imports
 
-The [importpw][] GitHub organization houses the "root" imports. A root import
-is implied when there is no `/` in the import path.
+The [importpw][] GitHub organization houses the top-level namespace imports.
+A root import is implied when there is no `/` in the import path.
 
 For example, the `assert` module helps write simple unit testing scripts:
 
