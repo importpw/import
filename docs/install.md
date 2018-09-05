@@ -28,15 +28,9 @@ using the "shebang" feature of executable files:
 type import
 ```
 
-By default, `/bin/sh` will be used when invoking your script via shebang. An
-explicit shell interpreter may be specified by using the `-s`/`--shell` command
-line flags within the shebang. For example:
-
-```bash
-#!/usr/bin/env import -s bash
-
-# This code will be executed using `bash` instead of `sh`
-```
+Note that this method will use the interpreter located at `/bin/sh`, which usually
+implies baseline POSIX features. If you need more control over which interpreter
+is used then see the next method.
 
 
 #### Source
@@ -48,6 +42,19 @@ your `~/.bashrc` file in order to have import available on the command line:
 
 ```bash
 #!/bin/sh
+
+. "$(which import)"
+
+type import
+```
+
+This method also gives you control over which interpreter is used. For examples
+if you need bash-specific features, you can specify to use it in the shebang,
+and then source the `import` script:
+
+```bash
+#!/bin/bash
+# This code will be executed using `/bin/bash` instead of `/bin/sh`
 
 . "$(which import)"
 
