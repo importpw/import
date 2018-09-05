@@ -32,35 +32,20 @@ Note that this method will use the interpreter located at `/bin/sh`, which usual
 implies baseline POSIX features. If you need more control over which interpreter
 is used then see the next method.
 
-
 #### Source
 
 Another way to bootstrap `import` is to simply source it into your script.
-This method is useful for times when you do not have control over _how_ the
-script is invoked, but you can still execute shell code. For example, within
-your `~/.bashrc` file in order to have import available on the command line:
-
-```bash
-#!/bin/sh
-
-. "$(which import)"
-
-type import
-```
-
-This method also gives you control over which interpreter is used. For examples
+This method gives you control over which interpreter is used. For example,
 if you need bash-specific features, you can specify to use it in the shebang,
 and then source the `import` script:
 
 ```bash
 #!/bin/bash
-# This code will be executed using `/bin/bash` instead of `/bin/sh`
 
 . "$(which import)"
 
 type import
 ```
-
 
 #### Eval
 
