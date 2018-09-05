@@ -36,7 +36,7 @@ add 20 22
 
 ## ⚙️ Compatibility
 
-The core `import` function is fully POSIX-compliant, and maximum compatability
+The core `import` function is fully POSIX-compliant, and maximum compatibility
 is the goal. `import` is unit tested against the following shell implementations:
 
  * [ash](https://en.wikipedia.org/wiki/Almquist_shell) - Almquist Shell (BusyBox `ash` and Debian `dash`)
