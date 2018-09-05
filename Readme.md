@@ -1,4 +1,4 @@
-# [import](https://import.pw)
+# import
 
 `import` is a simple and fast module system for Bash and other Unix shells.
 
