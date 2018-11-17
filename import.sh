@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Only `shasum  is present on MacOS by default,
+# Only `shasum` is present on MacOS by default,
 # but only `sha1sum` is present on Alpine by default
 __import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
   r=$?
