@@ -155,7 +155,8 @@ if [ -n "${__import_entrypoint-}" ]; then
   while [ $# -gt 0 ]; do
     case "$1" in
       -s=*|--shell=*) __import_shell="${1#*=}"; shift 1;;
-      -s|--shell) __import_shell="${2}"; shift 2;;
+      -s|--shell) __import_shell="$2"; shift 2;;
+      -c) __import_command="$2"; shift 2;;
       -*) echo "import: unknown option $1" >&2 && exit 2;;
       *) break;;
     esac
@@ -164,6 +165,8 @@ if [ -n "${__import_entrypoint-}" ]; then
   if [ -n "${__import_shell-}" ]; then
     # If the script requested a specific shell, then relaunch using it
     exec "$__import_shell" "$0" "$@"
+  elif [ -n "${__import_command-}" ]; then
+    eval "$__import_command"
   else
     __import_entrypoint="$1"
     shift
