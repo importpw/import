@@ -70,7 +70,7 @@ import() {
     dir="$(dirname "$url")"
 
     local link_dir="$cache/links/$dir"
-    mkdir -p${IMPORT_DEBUG+v} "$link_dir" "$cache/data" "$cache/locations/$dir" >&2 || return
+    mkdir -p${IMPORT_DEBUG:+v} "$link_dir" "$cache/data" "$cache/locations/$dir" >&2 || return
 
     # Resolve the cache and link dirs with `pwd` now that the directories exist.
     cache="$( ( cd "$cache" && pwd ) )" || return
@@ -118,7 +118,7 @@ import() {
     cache_start="$(expr "${#cache}" + 1)"
     relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')data/$hash" || return
     [ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
-    ln -fs${IMPORT_DEBUG+v} "$relative" "$cache_url" >&2 || return
+    ln -fs${IMPORT_DEBUG:+v} "$relative" "$cache_url" >&2 || return
 
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully imported '$url' -> '$hash_file'" >&2
   fi
