@@ -70,7 +70,7 @@ import() {
     dir="$(dirname "$url")"
 
     local link_dir="$cache/links/$dir"
-    mkdir -p${IMPORT_DEBUG:+v} "$link_dir" "$cache/data" "$cache/locations/$dir" >&2 || return
+    mkdir -p "$link_dir" "$cache/data" "$cache/locations/$dir" >&2 || return
 
     # Resolve the cache and link dirs with `pwd` now that the directories exist.
     cache="$( ( cd "$cache" && pwd ) )" || return
