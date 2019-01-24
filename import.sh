@@ -41,7 +41,7 @@ import_parse_headers() {
 }
 
 import() {
-  local url="$1"
+  local url="$*"
   [ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
 
   # If this is a relative import than it need to be based off of

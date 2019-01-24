@@ -46,5 +46,9 @@ import relative
 test "$(relative)" = "relative"
 test "$(subdir_rel)" = "subdir_rel"
 
+# Test multiple words
+import pkg as foo
+test "$(foo)" = "this is foo"
+
 
 echo "Tests passed!"
