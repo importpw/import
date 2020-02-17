@@ -146,7 +146,7 @@ if [ -n "${ZSH_EVAL_CONTEXT-}" ]; then
   if [ "${ZSH_EVAL_CONTEXT-}" = "toplevel" ]; then
     __import_entrypoint="1"
   fi
-elif [ "$(basename "$0" .sh)" = "import" ]; then
+elif [ "$(echo "$0" | cut -c1)" != "-" ] && [ "$(basename "$0" .sh)" = "import" ]; then
   __import_entrypoint="1"
 fi
 
