@@ -89,10 +89,10 @@ import() {
     }
 
     # Now that the HTTP request has been resolved, parse the "Location"
-    location="$(import_parse_location "$url" < "$tmpheader")"
+    location="$(import_parse_location "$url" < "$tmpheader")" || return
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$location'" >&2
     echo "$location" > "$locfile"
-    rm "$tmpheader"
+    rm -f "$tmpheader"
 
     # Calculate the sha1 hash of the contents of the downloaded file.
     local hash
@@ -104,7 +104,7 @@ import() {
     # If the hashed file doesn't exist then move it into place,
     # otherwise delete the temp file - it's no longer needed.
     if [ -f "$hash_file" ]; then
-      rm "$tmpfile" || return
+      rm -f "$tmpfile" || return
     else
       mv "$tmpfile" "$hash_file" || return
     fi
@@ -117,7 +117,9 @@ import() {
     [ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
     ln -fs${IMPORT_DEBUG:+v} "$relative" "$cache_url" >&2 || return
 
-    [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully imported '$url' -> '$hash_file'" >&2
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully downloaded '$url' -> '$hash_file'" >&2
+  else
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: already cached '$url' -> '$hash_file'" >&2
   fi
 
   # Reset the `import` command args. There's not really a good reason to pass
