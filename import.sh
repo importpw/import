@@ -119,7 +119,7 @@ import() {
 
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully downloaded '$url' -> '$hash_file'" >&2
   else
-    [ -n "${IMPORT_DEBUG-}" ] && echo "import: already cached '$url' -> '$hash_file'" >&2
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: already cached '$url'" >&2
   fi
 
   # Reset the `import` command args. There's not really a good reason to pass
