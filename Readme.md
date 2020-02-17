@@ -1,5 +1,5 @@
 # import
-[![Build Status](https://github.com/TooTallNate/node-agent-base/workflows/test/badge.svg)](https://github.com/TooTallNate/node-agent-base/actions?workflow=test)
+[![Build Status](https://github.com/TooTallNate/node-agent-base/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/TooTallNate/node-agent-base/actions?workflow=Docker+Image++CI)
 
 `import` is a simple and fast module system for Bash and other Unix shells.
 
