@@ -84,12 +84,12 @@ import() {
     curl -sfLS --netrc-optional --dump-header "$tmpheader" ${IMPORT_CURL_OPTS-} "$url" > "$tmpfile" || {
       local r=$?
       echo "import: failed to download: $url" >&2
-      rm "$tmpfile" "$tmpheader" "$locfile" || return
+      rm -f "$tmpfile" "$tmpheader" || true
       return "$r"
     }
 
     # Now that the HTTP request has been resolved, parse the "Location"
-    location="$(import_parse_location < "$tmpheader")"
+    location="$(import_parse_location "$url" < "$tmpheader")"
     [ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$location'" >&2
     echo "$location" > "$locfile"
     rm "$tmpheader"
