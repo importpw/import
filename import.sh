@@ -9,7 +9,7 @@ __import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
 }
 [ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
 
-import_parse_headers() {
+import_parse_location() {
   local location="$1"
   local is_redirect=0
   while IFS='' read -r line; do
@@ -19,7 +19,6 @@ import_parse_headers() {
     if [ -z "$line" ]; then
       if [ "$is_redirect" -eq 0 ]; then
         # End of headers
-        [ -n "${IMPORT_DEBUG-}" ] && echo "import: end of headers '$url'" >&2
         break
       else
         # This is the end of redirect, and it is expected that more
@@ -35,9 +34,7 @@ import_parse_headers() {
       echo "import: warning - $(echo "$line" | awk -F": " '{print $2}')" >&2
     fi
   done
-  # Write the resolved URL location of this import to the cache
-  echo "$location" > "$2"
-  cat
+  echo "$location"
 }
 
 import() {
@@ -79,23 +76,23 @@ import() {
 
     # Download the requested file to a temporary place so that the shasum
     # can be computed to determine the proper final filename.
+    local location=""
     local tmpfile="$cache_url.tmp"
-    local tmpfifo="$cache_url.fifo"
+    local tmpheader="$cache_url.header"
     local locfile="$cache/locations/$url"
-    rm -f "$tmpfifo"
-    mkfifo "$tmpfifo"
-    import_parse_headers "$url" "$locfile" < "$tmpfifo" > "$tmpfile" &
-    local parse_pid="$!"
-    curl -fsSL --netrc-optional --include ${IMPORT_CURL_OPTS-} "$url" > "$tmpfifo" || {
-      r=$?
-      wait "$parse_pid"
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: HTTP GET $url" >&2
+    curl -sfLS --netrc-optional --dump-header "$tmpheader" ${IMPORT_CURL_OPTS-} "$url" > "$tmpfile" || {
+      local r=$?
       echo "import: failed to download: $url" >&2
-      rm "$tmpfile" "$tmpfifo" "$locfile" || return
+      rm -f "$tmpfile" "$tmpheader" || true
       return "$r"
     }
-    wait "$parse_pid"
-    rm "$tmpfifo" || return
-    [ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$(cat "$locfile")'" >&2
+
+    # Now that the HTTP request has been resolved, parse the "Location"
+    location="$(import_parse_location "$url" < "$tmpheader")"
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$location'" >&2
+    echo "$location" > "$locfile"
+    rm "$tmpheader"
 
     # Calculate the sha1 hash of the contents of the downloaded file.
     local hash
