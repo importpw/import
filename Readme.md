@@ -1,5 +1,5 @@
 # import
-[![Build Status](https://github.com/importpw/import/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/importpw/import/actions?workflow=Docker+Image+CI)
+[![Build Status](https://github.com/importpw/import/workflows/Tests/badge.svg)](https://github.com/importpw/import/actions?workflow=Tests)
 
 `import` is a simple and fast module system for Bash and other Unix shells.
 
