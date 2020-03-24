@@ -130,11 +130,13 @@ import() {
   # At this point, the file has been saved to the cache so
   # either source it or print it.
   if [ -z "${print-}" ]; then
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: sourcing '$cache_url'" >&2
     local __import_parent_location="${__import_location-}"
     __import_location="$(cat "$cache/locations/$url")"
     . "$cache_url" || return
     __import_location="$__import_parent_location"
   else
+    [ -n "${IMPORT_DEBUG-}" ] && echo "import: printing '$cache_url'" >&2
     echo "$cache_url"
   fi
 }
