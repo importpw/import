@@ -34,7 +34,3 @@ RUN dash ./test/test.sh
 
 FROM base
 RUN bash ./test/test.sh
-
-FROM base
-WORKDIR /public
-RUN echo "All tests passed!" > index.txt
