@@ -1,8 +1,8 @@
 ## 💸 Caching
 
 Caching is a core concept in `import`. Scripts are downloaded _exactly once_, and
-then cached on your filesystem _forever_ (or if the `IMPORT_RELOAD=1` env var is
-set).
+then cached on your filesystem _forever_ (or if the `IMPORT_RELOAD=1` environment
+variable is set).
 
 ```bash
 #!/usr/bin/env import
