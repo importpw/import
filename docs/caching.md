@@ -25,11 +25,12 @@ operations because of the debug logging:
 ```
 import: importing 'assert'
 import: normalized URL 'https://import.pw/assert'
-import: end of headers 'https://import.pw/assert'
+import: HTTP GET https://import.pw/assert
 import: resolved location 'https://import.pw/assert' -> 'https://raw.githubusercontent.com/importpw/assert/master/assert.sh'
-import: calculated hash 'https://import.pw/assert' -> 'bf671d3752778f91ad0884ff81b3e963af9e4a4f'
-import: creating symlink '/tmp/links/https://import.pw/assert' -> '../../../data/bf671d3752778f91ad0884ff81b3e963af9e4a4f'
-import: successfully imported 'https://import.pw/assert' -> '/tmp/data/bf671d3752778f91ad0884ff81b3e963af9e4a4f'
+import: calculated hash 'https://import.pw/assert' -> '0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
+import: creating symlink ‘/tmp/links/https://import.pw/assert’ -> ‘../../../data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad’
+import: successfully downloaded 'https://import.pw/assert' -> '/tmp/data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
+import: sourcing '/tmp/links/https://import.pw/assert'
 ```
 
 Now let's take a look at what the actual directory structure looks like:
