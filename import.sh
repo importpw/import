@@ -2,7 +2,7 @@
 
 # Only `shasum` is present on MacOS by default,
 # but only `sha1sum` is present on Alpine by default
-__import_shasum="$(which sha1sum)" || __import_shasum="$(which shasum)" || {
+__import_shasum="$(command -v sha1sum)" || __import_shasum="$(command -v shasum)" || {
 	r=$?
 	echo "import: no \`shasum\` or \`sha1sum\` command present" >&2
 	exit "$r"
