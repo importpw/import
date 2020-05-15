@@ -42,7 +42,7 @@ and then source the `import` script:
 ```bash
 #!/bin/bash
 
-. "$(which import)"
+. "$(command -v import)"
 
 type import
 ```
