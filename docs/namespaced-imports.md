@@ -47,8 +47,7 @@ testing scripts:
 
 ```bash
 #!/usr/bin/env import
-
-import assert@2.1.3
+import "assert@2.1.3"
 
 assert 1 = 2
 # assertion failed: 1 = 2
