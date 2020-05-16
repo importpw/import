@@ -18,8 +18,7 @@ import from GitHub:
 
 ```bash
 #!/usr/bin/env import
-
-import tootallnate/hello
+import "tootallnate/hello"
 
 hello
 # Hello, from @TooTallNate!
@@ -47,7 +46,7 @@ testing scripts:
 
 ```bash
 #!/usr/bin/env import
-import "assert@2.1.3"
+import "assert"
 
 assert 1 = 2
 # assertion failed: 1 = 2
