@@ -61,9 +61,11 @@ Here are some useful top-level imports:
  * [dns](https://import.pw/dns)
  * [emitter](https://import.pw/emitter)
  * [http](https://import.pw/http)
- * [querystring](https://import.pw/querystring)
+ * [os](https://import.pw/os)
  * [path](https://import.pw/path)
  * [prompt](https://import.pw/prompt)
+ * [querystring](https://import.pw/querystring)
+ * [string](https://import.pw/string)
  * [tcp](https://import.pw/tcp)
 
 See the [importpw][] org on GitHub for the complete listing of repositories.
