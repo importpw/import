@@ -90,7 +90,7 @@ import() {
 			--dump-header "$tmpheader" \
 			${IMPORT_CURL_OPTS-} \
 			"$url_with_qs" > "$tmpfile" || {
-			local r=$?
+				local r=$?
 				echo "import: failed to download: $url_with_qs" >&2
 				rm -f "$tmpfile" "$tmpheader" || true
 				return "$r"
