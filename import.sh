@@ -79,10 +79,19 @@ import() {
 		local tmpfile="$cache_url.tmp"
 		local tmpheader="$cache_url.header"
 		local locfile="$cache/locations/$url"
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: HTTP GET $url" >&2
-		curl -sfLS --netrc-optional --dump-header "$tmpheader" ${IMPORT_CURL_OPTS-} "$url" > "$tmpfile" || {
+		local qs="?"
+		if echo "$url" | grep '\?' > /dev/null; then
+			qs="&"
+		fi
+		local url_with_qs="${url}${qs}import=1"
+		[ -n "${IMPORT_DEBUG-}" ] && echo "import: HTTP GET $url_with_qs" >&2
+		curl -sfLS \
+			--netrc-optional \
+			--dump-header "$tmpheader" \
+			${IMPORT_CURL_OPTS-} \
+			"$url_with_qs" > "$tmpfile" || {
 			local r=$?
-				echo "import: failed to download: $url" >&2
+				echo "import: failed to download: $url_with_qs" >&2
 				rm -f "$tmpfile" "$tmpheader" || true
 				return "$r"
 			}
