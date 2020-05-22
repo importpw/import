@@ -83,7 +83,7 @@ import() {
 		if echo "$url" | grep '\?' > /dev/null; then
 			qs="&"
 		fi
-		local url_with_qs="${url}${qs}import=1"
+		local url_with_qs="${url}${qs}format=raw"
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: HTTP GET $url_with_qs" >&2
 		curl -sfLS \
 			--netrc-optional \
