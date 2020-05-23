@@ -38,6 +38,7 @@ import_parse_location() {
 
 import() {
 	local url="$*"
+	local url_path
 	[ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
 
 	# If this is a relative import than it need to be based off of
@@ -58,12 +59,13 @@ import() {
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
 	fi
 
-	local cache_url="$cache/links/$url"
+	url_path="$(echo "$url" | sed 's/\:\///')"
+	local cache_path="$cache/links/$url_path"
 
-	if [ ! -e "$cache_url" ] || [ -n "${IMPORT_RELOAD-}" ]; then
+	if [ ! -e "$cache_path" ] || [ -n "${IMPORT_RELOAD-}" ]; then
 		# Ensure that the directory containing the symlink for this import exists.
 		local dir
-		dir="$(dirname "$url")"
+		dir="$(dirname "$url_path")"
 
 		local link_dir="$cache/links/$dir"
 		mkdir -p "$link_dir" "$cache/data" "$cache/locations/$dir" >&2 || return
@@ -71,14 +73,14 @@ import() {
 		# Resolve the cache and link dirs with `pwd` now that the directories exist.
 		cache="$( ( cd "$cache" && pwd ) )" || return
 		link_dir="$( ( cd "$link_dir" && pwd ) )" || return
-		cache_url="$cache/links/$url"
+		cache_path="$cache/links/$url_path"
 
 		# Download the requested file to a temporary place so that the shasum
 		# can be computed to determine the proper final filename.
 		local location=""
-		local tmpfile="$cache_url.tmp"
-		local tmpheader="$cache_url.header"
-		local locfile="$cache/locations/$url"
+		local tmpfile="$cache_path.tmp"
+		local tmpheader="$cache_path.header"
+		local locfile="$cache/locations/$url_path"
 		local qs="?"
 		if echo "$url" | grep '\?' > /dev/null; then
 			qs="&"
@@ -123,7 +125,7 @@ import() {
 		cache_start="$(expr "${#cache}" + 1)"
 		relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')data/$hash" || return
 		[ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
-		ln -fs${IMPORT_DEBUG:+v} "$relative" "$cache_url" >&2 || return
+		ln -fs${IMPORT_DEBUG:+v} "$relative" "$cache_path" >&2 || return
 
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully downloaded '$url' -> '$hash_file'" >&2
 	else
@@ -138,14 +140,14 @@ import() {
 	# At this point, the file has been saved to the cache so
 	# either source it or print it.
 	if [ -z "${print-}" ]; then
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: sourcing '$cache_url'" >&2
+		[ -n "${IMPORT_DEBUG-}" ] && echo "import: sourcing '$cache_path'" >&2
 		local __import_parent_location="${__import_location-}"
-		__import_location="$(cat "$cache/locations/$url")"
-		. "$cache_url" || return
+		__import_location="$(cat "$cache/locations/$url_path")"
+		. "$cache_path" || return
 		__import_location="$__import_parent_location"
 	else
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: printing '$cache_url'" >&2
-		echo "$cache_url"
+		[ -n "${IMPORT_DEBUG-}" ] && echo "import: printing '$cache_path'" >&2
+		echo "$cache_path"
 	fi
 }
 
