@@ -20,6 +20,7 @@ import_usage() {
 	echo "    import \"assert@2.1.3\"  # import the tag \`2.1.3\` of the 'assert' module" >&2
 	echo "    import \"tootallnate/hello\"  # import from the GitHub repo \`tootallnate/hello\`" >&2
 	echo "    import \"https://git.io/fAWiz\"  # import from a fully qualified URL" >&2
+	return 2
 }
 
 import_parse_location() {
@@ -46,7 +47,7 @@ import() {
 
 	if [ -z "$url" ]; then
 		import_usage
-		return 2
+		return
 	fi
 
 	[ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
