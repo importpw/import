@@ -11,28 +11,19 @@ __import_shasum="$(command -v sha1sum)" || __import_shasum="$(command -v shasum)
 
 import_parse_location() {
 	local location="$1"
-	local is_redirect=0
-	while IFS='' read -r line; do
-		# Strip trailing CR
-		line="$(printf "%s" "$line" | tr -d \\r)"
-		if [ -z "$line" ]; then
-			if [ "$is_redirect" -eq 0 ]; then
-				# End of headers
-				break
-			else
-				# This is the end of redirect, and it is expected that more
-				# headers are coming, so continue parsing the headers
-				is_redirect=0
-			fi
-		elif echo "$line" | grep -i '^location:' >/dev/null; then
-			is_redirect=1
-			location="$(echo "$line" | awk -F": " '{print $2}')"
-		elif echo "$line" | grep -i '^content-location:' >/dev/null; then
-			location="$(echo "$line" | awk -F": " '{print $2}')"
-		elif echo "$line" | grep -i '^x-import-warning:' >/dev/null; then
-			echo "import: warning - $(echo "$line" | awk -F": " '{print $2}')" >&2
-		fi
+	local headers="$2"
+	local location_header=""
+
+	# Print `x-import-warning` headers
+	grep -i '^x-import-warning:' < "$headers" | while IFS='' read -r line; do
+		echo "import: warning - $(echo "$line" | awk -F": " '{print $2}' | tr -d \\r)" >&2
 	done
+
+	# Find the final `Location` or `Content-Location` header
+	location_header="$(grep -i '^location\|^content-location:' < "$headers" | tail -n1)"
+	if [ -n "$location_header" ]; then
+		location="$(echo "$location_header" | awk -F": " '{print $2}' | tr -d \\r)"
+	fi
 	echo "$location"
 }
 
@@ -99,7 +90,7 @@ import() {
 			}
 
 		# Now that the HTTP request has been resolved, parse the "Location"
-		location="$(import_parse_location "$url" < "$tmpheader")" || return
+		location="$(import_parse_location "$url" "$tmpheader")" || return
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$location'" >&2
 		echo "$location" > "$locfile"
 		rm -f "$tmpheader"
