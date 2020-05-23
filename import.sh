@@ -9,6 +9,19 @@ __import_shasum="$(command -v sha1sum)" || __import_shasum="$(command -v shasum)
 }
 [ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
 
+import_usage() {
+	echo "Usage: import \"org/repo/mod.sh\"" >&2
+	echo "" >&2
+	echo "  Documentation: https://import.pw" >&2
+	echo "  Core Modules: https://github.com/importpw" >&2
+	echo "" >&2
+	echo "  Examples:" >&2
+	echo "    import \"assert\"  # import the latest commit of the 'assert' module " >&2
+	echo "    import \"assert@2.1.3\"  # import the tag \`2.1.3\` of the 'assert' module" >&2
+	echo "    import \"tootallnate/hello\"  # import from the GitHub repo \`tootallnate/hello\`" >&2
+	echo "    import \"https://git.io/fAWiz\"  # import from a fully qualified URL" >&2
+}
+
 import_parse_location() {
 	local location="$1"
 	local is_redirect=0
@@ -38,7 +51,13 @@ import_parse_location() {
 
 import() {
 	local url="$*"
-	local url_path
+	local url_path=""
+
+	if [ -z "$url" ]; then
+		import_usage
+		return 2
+	fi
+
 	[ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
 
 	# If this is a relative import than it need to be based off of
