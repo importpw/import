@@ -132,7 +132,7 @@ import() {
 		# Create a relative symlink for this import pointing to the hashed file.
 		local relative
 		local cache_start
-		cache_start="$(expr "${#cache}" + 1)"
+		cache_start="$(expr "${#cache}" + 1)" || return
 		relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')data/$hash" || return
 		[ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
 		ln -fs${IMPORT_DEBUG:+v} "$relative" "$cache_path" >&2 || return
@@ -152,7 +152,7 @@ import() {
 	if [ -z "${print-}" ]; then
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: sourcing '$cache_path'" >&2
 		local __import_parent_location="${__import_location-}"
-		__import_location="$(cat "$cache/locations/$url_path")"
+		__import_location="$(cat "$cache/locations/$url_path")" || return
 		. "$cache_path" || return
 		__import_location="$__import_parent_location"
 	else
