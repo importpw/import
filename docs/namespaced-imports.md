@@ -7,8 +7,8 @@ A namespaced import means that the `IMPORT_SERVER` (which defaults to
 https://import.pw) is prepended to the import URL. For example, these
 two import invocations are identical:
 
- * `import assert`
- * `import https://import.pw/assert`
+ * `import "assert"`
+ * `import "https://import.pw/assert"`
 
 
 ## Example
