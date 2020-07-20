@@ -193,5 +193,5 @@ if [ -n "${__import_entrypoint-}" ]; then
 		__import_entrypoint="$1"
 		shift
 		. "$__import_entrypoint"
-		fi
 	fi
+fi
