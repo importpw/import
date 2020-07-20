@@ -93,7 +93,7 @@ import() {
 		local tmpheader="$cache_path.header"
 		local locfile="$cache/locations/$url_path"
 		local qs="?"
-		if echo "$url" | grep '\?' > /dev/null; then
+		if echo "$url" | grep '?' > /dev/null; then
 			qs="&"
 		fi
 		local url_with_qs="${url}${qs}format=raw"
