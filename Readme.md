@@ -4,8 +4,7 @@
 `import` is a simple and fast module system for Bash and other Unix shells.
 
 Inspired by Go's import command, you specify the URL of the shell script,
-and the `import` function downloads the file and caches it to `~/.import-cache`,
-_forever_.
+and the `import` function downloads the file and caches it locally, _forever_.
 
 The code will never change from below your feet, and will continue to work
 offline.
