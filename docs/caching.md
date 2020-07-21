@@ -1,7 +1,7 @@
 ## 💸 Caching
 
 Caching is a core concept in `import`. Scripts are downloaded _exactly once_, and
-then cached on your filesystem _forever_ (unless the `IMPORT_RELOAD=1` environment
+then cached on your filesystem _forever_ (or if the `IMPORT_RELOAD=1` environment
 variable is set).
 
 ```bash
@@ -41,7 +41,7 @@ $ tree /tmp
 ├── data
 │   └── bf671d3752778f91ad0884ff81b3e963af9e4a4f
 ├── links
-│   └── https
+│   └── https:
 │       └── import.pw
 │           └── assert -> ../../../data/bf671d3752778f91ad0884ff81b3e963af9e4a4f
 └── locations
@@ -55,10 +55,3 @@ $ tree /tmp
  * `data` - The raw shell scripts, named after the sha1sum of the file contents
  * `links` - Symbolic links that are named according to the import URL
  * `locations` - Files named according to the import URL that point to the _real_ URL
-
-### ⚙️ Cache Location
-
-If the `$IMPORT_CACHE` environment variable is not set, the cache location defaults to the directory `import.pw` in the OS-specific user cache directory. For this user cache directory `import` considers (in order):
-* `$XDG_CACHE_HOME` ([usually](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) set on Linux)
-* `$LOCALAPPDATA` (usually set on Windows)
-* `$HOME/Library/Caches` on macOS and `$HOME/.cache` everywhere else
