@@ -49,6 +49,7 @@ is the goal. `import` is unit tested against the following shell implementations
 ## 📚 Documentation
 
  * [Authentication](./docs/authentication.md) - Making private GitHub repos work
+ * [API](./docs/api.md) - Application programming interface reference
  * [Caching](./docs/caching.md) - Explanation of the caching strategy
  * [Configuration](./docs/config.md) - Customizing `import` with environment variables
  * [Installation](./docs/install.md) - Installing and bootstrapping `import`
