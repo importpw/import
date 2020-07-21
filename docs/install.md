@@ -2,16 +2,17 @@
 
 `import` is a single, self-contained shell script. Installation is as simple
 as downloading the script into your `$PATH` and giving it executable permissions.
+Alternatively, it can be downloaded automatically within a script that uses `import`.
 
-For example, to install `import` to `/usr/local/bin`, run the following:
+### 👢 Bootstrapping the `import` function
+
+The installation can be anywhere on the `$PATH`. For example, to install `import` to
+`/usr/local/bin`, run the following:
 
 ```bash
 curl -sfLS https://import.pw > /usr/local/bin/import
 chmod +x /usr/local/bin/import
 ```
-
-
-## 👢 Bootstrapping the `import` function
 
 Once you have the `import` script installed, there are two preferred ways to
 utilize it in your shell scripts: _shebang_ or _source_.
@@ -47,10 +48,15 @@ and then source the `import` script:
 type import
 ```
 
+### 🦿 Automatic download
+
+An alternative approach is to automatically download `import` in your shell
+script itself without requiring manual installation.
+
 #### Eval
 
-Finally, for scenarios when `import` _is not installed_, it is possible to
-`curl` + `eval` the import function directly into your shell script.
+It is possible to `curl` + `eval` the import function directly into your shell
+script.
 
 ```bash
 #!/bin/sh
@@ -63,3 +69,24 @@ type import
 Note that this method is not as ideal as the shebang/sourcing methods, because
 this version incurs an HTTP request to retrieve the import function every time
 the script is run, and it won't work offline.
+
+#### Download & Cache
+
+Finally, it is possible to download and cache the `import` script itself by
+using the following snippet. This combines the convenience of the eval approach
+without the cost of an HTTP request on each run, but requires a slightly unwieldy
+bit of code in each shell script that uses `import`.
+
+```bash
+#!/bin/sh
+
+[ "$(uname -s)" = "Darwin" ] && __i="$HOME/Library/Caches" || __i="$HOME/.cache" && __i="${IMPORT_CACHE:-${XDG_CACHE_HOME:-${LOCALAPPDATA:-${__i}}}/import.pw}/import" && [ -r "$__i" ] || curl -sfLSo "$__i" --create-dirs https://import.pw && . "$__i" && unset __i
+
+type import
+```
+
+Explanation: the complexity lies almost completely in finding out the default
+cache location on different operating systems in sync with the `import` script
+as detailed in the [caching](caching.md) documentation. Following that, the
+snippet checks if the `import` script exists in the cache, downloads and stores
+it via `curl` if is missing, and finally sources it.
