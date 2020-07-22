@@ -60,9 +60,16 @@ import() {
 	esac
 
 	# The base directory for the import cache.
-	# Defaults to `$HOME/.import_cache`.
+	# Defaults to `import.pw` in the user cache directory specified by `$XDG_CACHE_HOME`
+	# or `$LOCALAPPDATA` (falling back to `$HOME/Library/Caches` on macOS and
+	# `$HOME/.cache` everywhere else).
 	# May be configured by setting the `IMPORT_CACHE` variable.
-	local cache="${IMPORT_CACHE-${HOME}/.import-cache}"
+	# On AWS Lambda, `$HOME` is not defined but `~` works.
+	# Furthermore, make sure we can always set IMPORT_CACHE even if HOME is undefined.
+	local home="${HOME:-"$(echo ~)"}"
+	local ucd_fallback="$home/.cache"
+	[ "$(uname -s)" = "Darwin" ] && ucd_fallback="$home/Library/Caches"
+	local cache="${IMPORT_CACHE:-${XDG_CACHE_HOME:-${LOCALAPPDATA:-$ucd_fallback}}/import.pw}"
 
 	# Apply the default server if the user is doing an implicit import
 	if ! echo "$url" | grep "://" > /dev/null && ! echo "$url" | awk -F/ '{print $1}' | awk -F@ '{print $1}' | grep '\.' > /dev/null; then
