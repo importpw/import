@@ -28,9 +28,9 @@ import: normalized URL 'https://import.pw/assert'
 import: HTTP GET https://import.pw/assert
 import: resolved location 'https://import.pw/assert' -> 'https://raw.githubusercontent.com/importpw/assert/master/assert.sh'
 import: calculated hash 'https://import.pw/assert' -> '0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
-import: creating symlink ‘/tmp/links/https://import.pw/assert’ -> ‘../../../data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad’
+import: creating symlink ‘/tmp/links/https/import.pw/assert’ -> ‘../../../data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad’
 import: successfully downloaded 'https://import.pw/assert' -> '/tmp/data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
-import: sourcing '/tmp/links/https://import.pw/assert'
+import: sourcing '/tmp/links/https/import.pw/assert'
 ```
 
 Now let's take a look at what the actual directory structure looks like:
@@ -58,9 +58,10 @@ $ tree /tmp
 
 ### ⚙️ Cache Location
 
-If the `$IMPORT_CACHE` environment variable is not set, the cache location
+If the `IMPORT_CACHE` environment variable is not set, the cache location
 defaults to the directory `import.pw` in the OS-specific user cache directory.
 For this user cache directory `import` considers (in order):
+
 * `$XDG_CACHE_HOME` ([usually](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) set on Linux)
 * `$LOCALAPPDATA` (usually set on Windows)
 * `$HOME/Library/Caches` on macOS and `$HOME/.cache` everywhere else
