@@ -162,6 +162,9 @@ import() {
 	fi
 }
 
+import_file() {
+	print=1 import "$@"
+}
 
 # For `#!/usr/bin/env import`
 if [ -n "${ZSH_EVAL_CONTEXT-}" ]; then

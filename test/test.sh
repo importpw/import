@@ -16,7 +16,7 @@ finish() {
 }
 trap finish EXIT INT QUIT
 
-IMPORT_CACHE=cache
+IMPORT_CACHE="$PWD/cache"
 IMPORT_DEBUG=1
 IMPORT_RELOAD=1
 IMPORT_SERVER="${nginx_addr}"
@@ -49,6 +49,16 @@ test "$(subdir_rel)" = "subdir_rel"
 # Test multiple words
 import pkg as foo
 test "$(foo)" = "this is foo"
+
+# Test import_file
+sum_rb_path="$(import_file "$nginx_addr/sum.rb")"
+test "$sum_rb_path" = "$IMPORT_CACHE/links/http/127.0.0.1:12006/sum.rb"
+diff -q "$sum_rb_path" "test/static/sum.rb"
+
+# Test import with print=1 (equivalent to import_file; supported for backwards compatibility)
+sum_rb_path="$(print=1 import "$nginx_addr/sum.rb")"
+test "$sum_rb_path" = "$IMPORT_CACHE/links/http/127.0.0.1:12006/sum.rb"
+diff -q "$sum_rb_path" "test/static/sum.rb"
 
 
 echo "Tests passed!"
