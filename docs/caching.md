@@ -45,7 +45,7 @@ $ tree /tmp
 │       └── import.pw
 │           └── assert -> ../../../data/bf671d3752778f91ad0884ff81b3e963af9e4a4f
 └── locations
-    └── https:
+    └── https
         └── import.pw
             └── assert
 ```
