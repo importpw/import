@@ -55,6 +55,10 @@ import_cache_dir() {
 	echo "${XDG_CACHE_HOME:-${LOCALAPPDATA:-$ucd_fallback}}/$1"
 }
 
+import_cache_dir_import() {
+	echo "${IMPORT_CACHE:-$(import_cache_dir import.pw)}"
+}
+
 import() {
 	local url="$*"
 	local url_path=""
@@ -73,7 +77,8 @@ import() {
 		(../*) url="$(dirname "$__import_location")/$url";;
 	esac
 
-	local cache="${IMPORT_CACHE:-$(import_cache_dir import.pw)}"
+	local cache=""
+	cache="$(import_cache_dir_import)"
 
 	# Apply the default server if the user is doing an implicit import
 	if ! echo "$url" | grep "://" > /dev/null && ! echo "$url" | awk -F/ '{print $1}' | awk -F@ '{print $1}' | grep '\.' > /dev/null; then
