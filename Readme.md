@@ -1,5 +1,4 @@
 # import
-[![Build Status](https://github.com/importpw/import/workflows/Tests/badge.svg)](https://github.com/importpw/import/actions?workflow=Tests)
 
 `import` is a simple and fast module system for Bash and other Unix shells.
 
