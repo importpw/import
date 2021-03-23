@@ -25,8 +25,10 @@ the [`tootallnate/hello`](https://import.pw/tootalnate/hello), then you can see
 the `Location` header is present:
 
 ```
-$ curl -sI https://import.pw/tootallnate/hello | grep -i location
-location: https://raw.githubusercontent.com/tootallnate/hello/master/hello.sh
+#!/bin/sh
+
+curl -sI https://import.pw/tootallnate/hello | grep -i location
+# location: https://raw.githubusercontent.com/tootallnate/hello/master/hello.sh
 ```
 
 `import` keeps tracks of these URL locations, so that from _within the `hello.sh`
