@@ -3,7 +3,7 @@ RUN apk add --no-cache curl bash dash loksh mksh tree zsh build-base nginx
 
 # Compile `oksh` from source
 RUN cd /tmp && \
-  curl -LfsS https://github.com/ibara/oksh/archive/master.tar.gz | tar xzvf - && \
+  curl -LfsS https://github.com/ibara/oksh/archive/main.tar.gz | tar xzvf - && \
   cd oksh* && \
   ./configure && make && make install && \
   cd .. && \
