@@ -41,7 +41,7 @@ is the goal. `import` is unit tested against the following shell implementations
  * [ash](https://en.wikipedia.org/wiki/Almquist_shell) - Almquist Shell (BusyBox `ash` and Debian `dash`)
  * [ksh](https://en.wikipedia.org/wiki/KornShell) - KornShell (`oksh`, `mksh` and `loksh` flavors)
  * [zsh](https://en.wikipedia.org/wiki/Z_shell) - Z Shell
- * [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - GNU's Bourne Again SHell
+ * [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - GNU's Bourne Again Shell
 
 
 ## 📚 Documentation
