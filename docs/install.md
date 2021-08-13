@@ -10,7 +10,7 @@ The installation can be anywhere on the `$PATH`. For example, to install `import
 `/usr/local/bin`, run the following:
 
 ```bash
-curl -sfLS https://import.pw > /usr/local/bin/import
+curl -sfLS https://import.sh > /usr/local/bin/import
 chmod +x /usr/local/bin/import
 ```
 
@@ -61,7 +61,7 @@ script.
 ```bash
 #!/bin/sh
 
-eval "$(curl -sfLS https://import.pw)"
+eval "$(curl -sfLS https://import.sh)"
 
 type import
 ```
@@ -80,7 +80,7 @@ bit of code in each shell script that uses `import`.
 ```bash
 #!/bin/sh
 
-[ "$(uname -s)" = "Darwin" ] && __i="$HOME/Library/Caches" || __i="$HOME/.cache" && __i="${IMPORT_CACHE:-${XDG_CACHE_HOME:-${LOCALAPPDATA:-${__i}}}/import.pw}/import" && [ -r "$__i" ] || curl -sfLSo "$__i" --create-dirs https://import.pw && . "$__i" && unset __i
+[ "$(uname -s)" = "Darwin" ] && __i="$HOME/Library/Caches" || __i="$HOME/.cache" && __i="${IMPORT_CACHE:-${XDG_CACHE_HOME:-${LOCALAPPDATA:-${__i}}}/import.sh}/import" && [ -r "$__i" ] || curl -sfLSo "$__i" --create-dirs https://import.sh && . "$__i" && unset __i
 
 type import
 ```

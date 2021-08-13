@@ -24,13 +24,13 @@ operations because of the debug logging:
 
 ```
 import: importing 'assert'
-import: normalized URL 'https://import.pw/assert'
-import: HTTP GET https://import.pw/assert
-import: resolved location 'https://import.pw/assert' -> 'https://raw.githubusercontent.com/importpw/assert/master/assert.sh'
-import: calculated hash 'https://import.pw/assert' -> '0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
-import: creating symlink ‘/tmp/links/https/import.pw/assert’ -> ‘../../../data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad’
-import: successfully downloaded 'https://import.pw/assert' -> '/tmp/data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
-import: sourcing '/tmp/links/https/import.pw/assert'
+import: normalized URL 'https://import.sh/assert'
+import: HTTP GET https://import.sh/assert
+import: resolved location 'https://import.sh/assert' -> 'https://raw.githubusercontent.com/importpw/assert/master/assert.sh'
+import: calculated hash 'https://import.sh/assert' -> '0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
+import: creating symlink ‘/tmp/links/https/import.sh/assert’ -> ‘../../../data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad’
+import: successfully downloaded 'https://import.sh/assert' -> '/tmp/data/0a1c5188c768b3b150f1a8a104bb71a3fa160aad'
+import: sourcing '/tmp/links/https/import.sh/assert'
 ```
 
 Now let's take a look at what the actual directory structure looks like:
@@ -42,11 +42,11 @@ $ tree /tmp
 │   └── bf671d3752778f91ad0884ff81b3e963af9e4a4f
 ├── links
 │   └── https
-│       └── import.pw
+│       └── import.sh
 │           └── assert -> ../../../data/bf671d3752778f91ad0884ff81b3e963af9e4a4f
 └── locations
     └── https
-        └── import.pw
+        └── import.sh
             └── assert
 ```
 
@@ -59,7 +59,7 @@ $ tree /tmp
 ### ⚙️ Cache Location
 
 If the `IMPORT_CACHE` environment variable is not set, the cache location
-defaults to the directory `import.pw` in the OS-specific user cache directory.
+defaults to the directory `import.sh` in the OS-specific user cache directory.
 For this user cache directory `import` considers (in order):
 
 * `$XDG_CACHE_HOME` ([usually](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) set on Linux)

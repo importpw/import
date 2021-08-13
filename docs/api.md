@@ -8,7 +8,7 @@ the downloaded script.
 
 ```bash
 #!/usr/bin/env import
-import "https://import.pw/string@0.2.0"
+import "https://import.sh/string@0.2.0"
 
 echo InPuT | string_upper
 # INPUT
@@ -24,7 +24,7 @@ files such as scripts from other languages, simple data files, binary files, etc
 ```bash
 #!/usr/bin/env import
 
-ruby "$(import_file https://import.pw/importpw/import/test/static/sum.rb)" 9 10 11 12
+ruby "$(import_file https://import.sh/importpw/import/test/static/sum.rb)" 9 10 11 12
 # 42
 ```
 
@@ -57,13 +57,13 @@ XDG_CACHE_HOME=/cache import_cache_dir example
 Returns the operating system specific path to the cache directory that files
 imported using `import` are written to. This function returns the contents the
 `$IMPORT_CACHE` environment variable, if defined. Otherwise it returns the result
-of `import_cache_dir import.pw`.
+of `import_cache_dir import.sh`.
 
 ```bash
 #!/usr/bin/env import
 
 import_cache_dir_import
-# /Users/nate/Library/Caches/import.pw
+# /Users/nate/Library/Caches/import.sh
 
 IMPORT_CACHE=/tmp import_cache_dir_import
 # /tmp
