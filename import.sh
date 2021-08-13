@@ -12,7 +12,7 @@ __import_shasum="$(command -v sha1sum)" || __import_shasum="$(command -v shasum)
 import_usage() {
 	echo "Usage: import \"org/repo/mod.sh\"" >&2
 	echo "" >&2
-	echo "  Documentation: https://import.pw" >&2
+	echo "  Documentation: https://import.sh" >&2
 	echo "  Core Modules: https://github.com/importpw" >&2
 	echo "" >&2
 	echo "  Examples:" >&2
@@ -42,7 +42,7 @@ import_parse_location() {
 }
 
 # The base directory for the import cache.
-# Defaults to `import.pw` in the user cache directory specified by `$XDG_CACHE_HOME`
+# Defaults to `import.sh` in the user cache directory specified by `$XDG_CACHE_HOME`
 # or `$LOCALAPPDATA` (falling back to `$HOME/Library/Caches` on macOS and
 # `$HOME/.cache` everywhere else).
 # May be configured by setting the `IMPORT_CACHE` variable.
@@ -56,7 +56,7 @@ import_cache_dir() {
 }
 
 import_cache_dir_import() {
-	echo "${IMPORT_CACHE:-$(import_cache_dir import.pw)}"
+	echo "${IMPORT_CACHE:-$(import_cache_dir import.sh)}"
 }
 
 import() {
@@ -82,7 +82,7 @@ import() {
 
 	# Apply the default server if the user is doing an implicit import
 	if ! echo "$url" | grep "://" > /dev/null && ! echo "$url" | awk -F/ '{print $1}' | awk -F@ '{print $1}' | grep '\.' > /dev/null; then
-		url="${IMPORT_SERVER-https://import.pw}/$url"
+		url="${IMPORT_SERVER-https://import.sh}/$url"
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
 	fi
 
@@ -161,7 +161,7 @@ import() {
 
 	# Reset the `import` command args. There's not really a good reason to pass
 	# the URL to the sourced script, and in fact could cause undesirable results.
-	# i.e. This is required to make `import.pw/kward/shunit2` work out of the box.
+	# i.e. This is required to make `import.sh/kward/shunit2` work out of the box.
 	set --
 
 	# At this point, the file has been saved to the cache so

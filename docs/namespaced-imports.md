@@ -4,11 +4,11 @@ Any `import` where the beginning portion (up to the first slash) of the
 URL _does not contain a `.`_ is considered a **namespaced import**.
 
 A namespaced import means that the `IMPORT_SERVER` (which defaults to
-https://import.pw) is prepended to the import URL. For example, these
+https://import.sh) is prepended to the import URL. For example, these
 two import invocations are identical:
 
  * `import "assert"`
- * `import "https://import.pw/assert"`
+ * `import "https://import.sh/assert"`
 
 
 ## Example
@@ -25,9 +25,9 @@ hello
 ```
 
 
-## The `import.pw` server
+## The `import.sh` server
 
-The default `IMPORT_SERVER` is https://import.pw, which serves GitHub
+The default `IMPORT_SERVER` is https://import.sh, which serves GitHub
 repositories that are "import-compatible" according to its _conventions_:
 
  * The main import syntax is `import <org>/<repo>`
@@ -54,18 +54,18 @@ assert 1 = 2
 
 Here are some useful top-level imports:
 
- * [array](https://import.pw/array)
- * [assert](https://import.pw/assert)
- * [confirm](https://import.pw/confirm)
- * [dns](https://import.pw/dns)
- * [emitter](https://import.pw/emitter)
- * [http](https://import.pw/http)
- * [os](https://import.pw/os)
- * [path](https://import.pw/path)
- * [prompt](https://import.pw/prompt)
- * [querystring](https://import.pw/querystring)
- * [string](https://import.pw/string)
- * [tcp](https://import.pw/tcp)
+ * [array](https://import.sh/array)
+ * [assert](https://import.sh/assert)
+ * [confirm](https://import.sh/confirm)
+ * [dns](https://import.sh/dns)
+ * [emitter](https://import.sh/emitter)
+ * [http](https://import.sh/http)
+ * [os](https://import.sh/os)
+ * [path](https://import.sh/path)
+ * [prompt](https://import.sh/prompt)
+ * [querystring](https://import.sh/querystring)
+ * [string](https://import.sh/string)
+ * [tcp](https://import.sh/tcp)
 
 See the [importpw][] org on GitHub for the complete listing of repositories.
 
@@ -74,11 +74,11 @@ See the [importpw][] org on GitHub for the complete listing of repositories.
 
 Here are some GitHub repositories that are known to be compatible with `import`:
 
- * [kward/log4sh](https://import.pw/kward/log4sh)
- * [kward/shflags](https://import.pw/kward/shflags)
- * [kward/shunit2](https://import.pw/kward/shunit2)
- * [robwhitby/shakedown](https://import.pw/robwhitby/shakedown)
- * [tootallnate/nexec](https://import.pw/tootallnate/nexec)
+ * [kward/log4sh](https://import.sh/kward/log4sh)
+ * [kward/shflags](https://import.sh/kward/shflags)
+ * [kward/shunit2](https://import.sh/kward/shunit2)
+ * [robwhitby/shakedown](https://import.sh/robwhitby/shakedown)
+ * [tootallnate/nexec](https://import.sh/tootallnate/nexec)
 
 (Send a [pull request](https://github.com/importpw/import/pulls) if you would like to have an import listed here)
 

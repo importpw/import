@@ -21,13 +21,13 @@ This final URL gets cached to the filesystem in the `locations` directory.
 ### Example
 
 Perhaps an example will help illustrate. If you inspect the response headers for
-the [`tootallnate/hello`](https://import.pw/tootallnate/hello), then you can see
+the [`tootallnate/hello`](https://import.sh/tootallnate/hello), then you can see
 the `content-location` header is present:
 
 ```
 #!/bin/sh
 
-curl -sI https://import.pw/tootallnate/hello | grep -i location
+curl -sI https://import.sh/tootallnate/hello | grep -i location
 # content-location: https://raw.githubusercontent.com/tootallnate/hello/master/hello.sh
 ```
 

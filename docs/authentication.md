@@ -22,6 +22,6 @@ After that, an `import` call to a private repo will work as expected:
 import "my-organization/private-repo@1.0.0"
 ```
 
-Your GitHub credentials **ARE NEVER** given to the `import.pw` server.
+Your GitHub credentials **ARE NEVER** given to the `import.sh` server.
 They are only used _locally_ by `curl` once the server redirects to the
 private repo URL.
