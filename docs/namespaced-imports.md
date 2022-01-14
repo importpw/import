@@ -28,7 +28,8 @@ hello
 ## The `import.sh` server
 
 The default `IMPORT_SERVER` is https://import.sh, which serves GitHub
-repositories that are "import-compatible" according to its _conventions_:
+repositories that are _"import-compatible"_, according to the following
+conventions:
 
  * The main import syntax is `import <org>/<repo>`
  * The entry point of the import is the file with the name of the repo with a `.sh` suffix
