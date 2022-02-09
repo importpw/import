@@ -114,7 +114,7 @@ import() {
 		fi
 		local url_with_qs="${url}${qs}format=raw"
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: HTTP GET $url_with_qs" >&2
-		curl -sfLS \
+		import_retry curl -sfLS \
 			--netrc-optional \
 			--dump-header "$tmpheader" \
 			${IMPORT_CURL_OPTS-} \
@@ -180,6 +180,25 @@ import() {
 
 import_file() {
 	print=1 import "$@"
+}
+
+import_retry() {
+	local exit_code=""
+	local retry_count="0"
+	local number_of_retries="${retries:-5}"
+
+	while [ "$retry_count" -lt "$number_of_retries" ]; do
+		exit_code="0"
+		"$@" || exit_code=$?
+		if [ "$exit_code" -eq 0 ]; then
+			break
+		fi
+		# TODO: add exponential backoff
+		sleep 1
+		retry_count=$(( retry_count + 1 ))
+	done
+
+	return "$exit_code"
 }
 
 # For `#!/usr/bin/env import`
