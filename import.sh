@@ -9,6 +9,9 @@ __import_shasum="$(command -v sha1sum)" || __import_shasum="$(command -v shasum)
 }
 [ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
 
+# Empty tracing file if it already exists, when the env var is set
+[ -n "${IMPORT_TRACE-}" ] && :>| "$IMPORT_TRACE"
+
 import_usage() {
 	echo "Usage: import \"org/repo/mod.sh\"" >&2
 	echo "" >&2
@@ -85,6 +88,9 @@ import() {
 		url="${IMPORT_SERVER-https://import.sh}/$url"
 		[ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
 	fi
+
+	# Print the URL to the tracing file if the env var is set
+	[ -n "${IMPORT_TRACE-}" ] && echo "$url" >> "$IMPORT_TRACE"
 
 	url_path="$(echo "$url" | sed 's/\:\///')"
 	local cache_path="$cache/links/$url_path"
