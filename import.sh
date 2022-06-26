@@ -95,7 +95,7 @@ import() {
 	url_path="$(echo "$url" | sed 's/\:\///')"
 	local cache_path="$cache/links/$url_path"
 
-	if [ ! -e "$cache_path" ] || [ -n "${IMPORT_RELOAD-}" ]; then
+	if [ ! -e "$cache_path" ] || [ "${IMPORT_RELOAD-}" = "1" ]; then
 		# Ensure that the directory containing the symlink for this import exists.
 		local dir
 		dir="$(dirname "$url_path")"
