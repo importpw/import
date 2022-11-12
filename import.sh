@@ -1,13 +1,21 @@
 #!/bin/sh
 
+import_log() {
+	echo "import:" "$@" >&2
+}
+
+import_debug() {
+	[ "${IMPORT_DEBUG-}" = "1" ] && import_log "$@" || true
+}
+
 # Only `shasum` is present on MacOS by default,
 # but only `sha1sum` is present on Alpine by default
 __import_shasum="$(command -v sha1sum)" || __import_shasum="$(command -v shasum)" || {
 	r=$?
-	echo "import: no \`shasum\` or \`sha1sum\` command present" >&2
+	import_log "No \`shasum\` or \`sha1sum\` command present"
 	exit "$r"
 }
-[ -n "${IMPORT_DEBUG-}" ] && echo "import: using '$__import_shasum'" >&2
+import_debug "Using '$__import_shasum'"
 
 # Empty tracing file if it already exists, when the env var is set
 [ -n "${IMPORT_TRACE-}" ] && :>| "$IMPORT_TRACE"
@@ -71,7 +79,7 @@ import() {
 		return
 	fi
 
-	[ -n "${IMPORT_DEBUG-}" ] && echo "import: importing '$url'" >&2
+	import_debug "Importing '$url'"
 
 	# If this is a relative import than it need to be based off of
 	# the parent import's resolved URL location.
@@ -86,7 +94,7 @@ import() {
 	# Apply the default server if the user is doing an implicit import
 	if ! echo "$url" | grep "://" > /dev/null && ! echo "$url" | awk -F/ '{print $1}' | awk -F@ '{print $1}' | grep '\.' > /dev/null; then
 		url="${IMPORT_SERVER-https://import.sh}/$url"
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: normalized URL '$url'" >&2
+		import_debug "Normalized URL '$url'"
 	fi
 
 	# Print the URL to the tracing file if the env var is set
@@ -118,29 +126,29 @@ import() {
 		if echo "$url" | grep '?' > /dev/null; then
 			qs="&"
 		fi
+		import_log "Downloading $url"
 		local url_with_qs="${url}${qs}format=raw"
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: HTTP GET $url_with_qs" >&2
 		import_retry curl -sfLS \
 			--netrc-optional \
 			--dump-header "$tmpheader" \
 			${IMPORT_CURL_OPTS-} \
 			"$url_with_qs" > "$tmpfile" || {
 				local r=$?
-				echo "import: failed to download: $url_with_qs" >&2
+				import_log "Failed to download: $url_with_qs" >&2
 				rm -f "$tmpfile" "$tmpheader" || true
 				return "$r"
 			}
 
 		# Now that the HTTP request has been resolved, parse the "Location"
 		location="$(import_parse_location "$url" "$tmpheader")" || return
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: resolved location '$url' -> '$location'" >&2
+		import_debug "Resolved location '$url' -> '$location'"
 		echo "$location" > "$locfile"
 		rm -f "$tmpheader"
 
 		# Calculate the sha1 hash of the contents of the downloaded file.
 		local hash
 		hash="$("$__import_shasum" < "$tmpfile" | { read -r first rest; echo "$first"; })" || return
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: calculated hash '$url' -> '$hash'" >&2
+		import_debug "Calculated hash '$url' -> '$hash'"
 
 		local hash_file="$cache/data/$hash"
 
@@ -157,12 +165,12 @@ import() {
 		local cache_start
 		cache_start="$(expr "${#cache}" + 1)" || return
 		relative="$(echo "$link_dir" | awk '{print substr($0,'$cache_start')}' | sed 's/\/[^/]*/..\//g')data/$hash" || return
-		[ -n "${IMPORT_DEBUG-}" ] && printf "import: creating symlink " >&2
+		[ -n "${IMPORT_DEBUG-}" ] && printf "import: Creating symlink " >&2
 		ln -fs${IMPORT_DEBUG:+v} "$relative" "$cache_path" >&2 || return
 
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: successfully downloaded '$url' -> '$hash_file'" >&2
+		import_debug "Successfully downloaded '$url' -> '$hash_file'"
 	else
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: already cached '$url'" >&2
+		import_debug "Already cached '$url'"
 	fi
 
 	# Reset the `import` command args. There's not really a good reason to pass
@@ -173,13 +181,13 @@ import() {
 	# At this point, the file has been saved to the cache so
 	# either source it or print it.
 	if [ -z "${print-}" ]; then
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: sourcing '$cache_path'" >&2
+		import_debug "Sourcing '$cache_path'"
 		local __import_parent_location="${__import_location-}"
 		__import_location="$(cat "$cache/locations/$url_path")" || return
 		. "$cache_path" || return
 		__import_location="$__import_parent_location"
 	else
-		[ -n "${IMPORT_DEBUG-}" ] && echo "import: printing '$cache_path'" >&2
+		import_debug "Printing '$cache_path'"
 		echo "$cache_path"
 	fi
 }
